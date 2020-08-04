@@ -181,9 +181,11 @@ bh_congratulations="おめでとうございます！"
 
 bh_connect_success_1="インターネットに接続しました。"
 
-bh_connect_success_2="このルーターは次のワイヤレスネットワーク名 (SSID) であらかじめ設定されており、 "
+bh_connect_success_2="このルーターは次のワイヤレスネットワーク名 (SSID) と "
 
 bh_network_key="ネットワークキー (パスワード)"
+
+bh_connect_success_3=" であらかじめ設定されています。"
 
 bh_rollover_help_text="ご利用のルーターには、不正なアクセスからネットワークを保護するためのWPA2-PSKワイヤレスセキュリティが設定されています。 このワイヤレスネットワークに接続するには、ネットワークキー (パスワード) が必要になります。 初期設定のネットワークキー（パスワード）は、シリアルナンバーのようにこのルーター固有のものです。  変更したい場合は、ルーター管理画面のワイヤレス設定画面で行えます。"
 
@@ -209,7 +211,7 @@ bh_plz_wait_moment="しばらくお待ちください..."
 //the string for not_support_print is temporary.
 bh_not_support_print="コンピューターはプリンタに対応していません。"
 //already exist
-bh_login_name_null="ユーザー名は空欄にできません。"
+bh_login_name_null="ユーザー名を空白にすることはできません。"
 bh_password_error="無効なパスワードです。"
 bh_idle_time_null="アイドル時間を入力してください。\n"
 bh_invalid_idle_time="無効なアイドル時間です。 正しい数値を入力してください。\n"
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="次のルーターアプリをダウンロードします："
+bh_genie_app="<b>genie アプリ。</b> ホームネットワークのモニタリング、管理、修復を行うソフトウェアです。"
+bh_rs_vault_app="<b>ReadySHARE Vault アプリ（Windowsのみ）。</b>Windowsコンピューターのデータをルーターに接続したUSBドライブへ自動的にバックアップします。"
 bh_exit_mark="終了"
 bh_previous="戻る"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="リクエストを処理しています…"
+bh_downloading="ダウンロード中…"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="ダウンロード完了後に genie アプリをインストールします。"
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="genie アプリをインストールしたら、[次へ] ボタンをクリックしてルーターの設定を完了します。"
 bh_dl_vault1="ダウンロードが完了後に ReadySHARE Vault アプリをインストールします。"
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="ReadySHARE Vault アプリをインストールしたら、[次へ] ボタンをクリックしてルーターの設定を完了します。"
 
 //firmware checking and update
 bh_wait_upg_head="ファームウェア更新アシスタント"

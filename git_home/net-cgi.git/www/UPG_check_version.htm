@@ -148,10 +148,11 @@ $bluebar
 <script>
 var master="<% cfg_get("http_loginname") %>";
 var no_mark = getText(bh_no_mark, "$no_mark");
+var yes_mark = getText(bh_yes_mark, "$yes_mark");
 if( master == "admin" )
-	document.write('<TR><TD nowrap colspan=2 align=center><input class="short_common_bt" type="button" name="Yes" value="$yes_mark" onclick="clickYes();">&nbsp;<input class="short_common_bt" type="button" name="No" value="'+no_mark+'" onclick="clickNo();"></TD></TR>');
+	document.write('<TR><TD nowrap colspan=2 align=center><input class="short_common_bt" type="button" name="Yes" value="'+yes_mark+'" onclick="clickYes();">&nbsp;<input class="short_common_bt" type="button" name="No" value="'+no_mark+'" onclick="clickNo();"></TD></TR>');
 else
-	document.write('<TR><TD nowrap colspan=2 align=center><input class="short_common1_bt" type="button" name="Yes" value="$yes_mark" disabled>&nbsp;<input class="short_common1_bt" type="button" name="No" value="'+no_mark+'" disabled></TD></TR>');
+	document.write('<TR><TD nowrap colspan=2 align=center><input class="short_common1_bt" type="button" name="Yes" value="'+yes_mark+'" disabled>&nbsp;<input class="short_common1_bt" type="button" name="No" value="'+no_mark+'" disabled></TD></TR>');
 </script>
 </TABLE>
 

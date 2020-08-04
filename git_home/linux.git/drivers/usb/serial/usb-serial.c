@@ -43,6 +43,8 @@
 #define DRIVER_AUTHOR "Greg Kroah-Hartman, greg@kroah.com, http://www.kroah.com/linux/"
 #define DRIVER_DESC "USB Serial Driver core"
 
+#define MAX_BUFF      4096
+
 static void port_free(struct usb_serial_port *port);
 
 /* Driver structure we register with the USB core */
@@ -947,6 +949,9 @@ int usb_serial_probe(struct usb_interface *interface,
 			goto probe_error;
 		}
 		buffer_size = le16_to_cpu(endpoint->wMaxPacketSize);
+
+		buffer_size = MAX_BUFF;
+
 		port->bulk_in_size = buffer_size;
 		port->bulk_in_endpointAddress = endpoint->bEndpointAddress;
 		port->bulk_in_buffer = kmalloc(buffer_size, GFP_KERNEL);
@@ -971,6 +976,9 @@ int usb_serial_probe(struct usb_interface *interface,
 			goto probe_error;
 		}
 		buffer_size = le16_to_cpu(endpoint->wMaxPacketSize);
+
+		buffer_size = MAX_BUFF;
+
 		port->bulk_out_size = buffer_size;
 		port->bulk_out_endpointAddress = endpoint->bEndpointAddress;
 		port->bulk_out_buffer = kmalloc(buffer_size, GFP_KERNEL);
@@ -997,6 +1005,9 @@ int usb_serial_probe(struct usb_interface *interface,
 				goto probe_error;
 			}
 			buffer_size = le16_to_cpu(endpoint->wMaxPacketSize);
+
+			buffer_size = MAX_BUFF;
+
 			port->interrupt_in_endpointAddress =
 						endpoint->bEndpointAddress;
 			port->interrupt_in_buffer = kmalloc(buffer_size,
@@ -1028,6 +1039,9 @@ int usb_serial_probe(struct usb_interface *interface,
 				goto probe_error;
 			}
 			buffer_size = le16_to_cpu(endpoint->wMaxPacketSize);
+
+			buffer_size = MAX_BUFF;
+
 			port->interrupt_out_size = buffer_size;
 			port->interrupt_out_endpointAddress =
 						endpoint->bEndpointAddress;

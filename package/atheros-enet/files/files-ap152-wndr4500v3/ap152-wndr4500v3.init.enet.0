@@ -9,6 +9,7 @@ ifconfig $rawif down
 sw_init
 sw_config_vlan 0
 sw_enable_igmp_snooping
+sw_acl_rule
 
 # create vlan
 ifconfig $rawif up

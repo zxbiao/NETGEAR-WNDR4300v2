@@ -1,5 +1,5 @@
 <% http_header_no_doc("style/form.css", "/funcs.js", "/wadv_sechdule.js") %>
-<% body_header("_wladv", "WLG_adv.htm", "wadv_schedule_add") %>
+<% body_header("_wladv", "WLG_advanced.htm", "wadv_schedule_add") %>
 
 <div class="page_title">$wlan_adv_head</div>
 <div class="fix_button"><!-- fix bug 28245 -->
@@ -8,7 +8,7 @@
 <script>
 var master="<% cfg_get("http_loginname") %>";
 if( master == "admin" )
-	document.write('<TD nowrap colspan=2 align=center><input class="cancel_bt" type="button" name="edit_schedule" value="$cancel_mark" onClick="location.href=\'WLG_adv.htm\';">&nbsp;&nbsp;<input class="apply_bt" type="submit" name="add_schedule" value="$apply_mark" onClick="return wireless_schedule_add(\'bgn\', \'add\');"></TD>');
+	document.write('<TD nowrap colspan=2 align=center><input class="cancel_bt" type="button" name="edit_schedule" value="$cancel_mark" onClick="location.href=\'WLG_advanced.htm\';">&nbsp;&nbsp;<input class="apply_bt" type="submit" name="add_schedule" value="$apply_mark" onClick="return wireless_schedule_add(\'bgn\', \'add\');"></TD>');
 else
 	document.write(' <TD nowrap colspan=2 align=center><input class="cancel1_bt" type="button" name="edit_schedule" value="$cancel_mark" disabled>&nbsp;&nbsp;<input class="apply1_bt" type="submit" name="add_schedule" value="$apply_mark" disabled></TD>');
 </script>

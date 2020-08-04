@@ -3,7 +3,7 @@ config="/bin/config"
 wan_proto="$($config get wan_proto)"
 
 TRAFFIC_STATUS=/tmp/traffic_meter/traffic_meter.conf
-if [ "$wan_proto" = "pppoe" ] || [ "$wan_proto" = "pptp" ] ;then
+if [ "$wan_proto" = "pppoe" ] || [ "$wan_proto" = "pptp" ] || [ "$wan_proto" = "3g" ];then
 	connection_type=0
 else
 	connection_type=1

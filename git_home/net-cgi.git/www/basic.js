@@ -11,7 +11,7 @@ function change_size()
 		menu_words.className = "menu_ie9_words";
 	}
 	
-	if(isIE_or_Opera() && IE_version() !=9)
+	if(isIE_or_Opera() && IE_version() !=9 && IE_version() !=11)
 	{
 		var height = document.documentElement.clientHeight - 97;
 		if( (height > 560 && !is_double) || (height > 603 && is_double) )
@@ -225,7 +225,7 @@ function enabledItemsClass_basic()
 		}
 		
 		var height_1 = cur_div_1.getElementsByTagName("a")[0].clientHeight;
-		if(top.enabled_wds==1 || top.enable_ap_flag== 1)
+		if(top.enabled_wds==1 || top.enable_ap_flag== 1 || top.broadband_mode == "MyDetc")
 		{
 			if( height_1 > 28 )
 				cur_div_1.className = "long_grey";
@@ -331,7 +331,7 @@ function click_action(id)
 			basic_menu_color_change('broadband');
 			goto_formframe('BAS_broadband.htm');
 		}
-		else if( id == "ethernet" && top.have_broadband ==1 && top.enabled_wds == 0 && top.enable_ap_flag != 1)
+		else if( id == "ethernet" && top.have_broadband ==1 && top.enabled_wds == 0 && top.enable_ap_flag != 1 && top.broadband_mode!="MyDetc")
 		{
 			basic_menu_color_change('ethernet');
 			goto_formframe('BAS_basic.htm');
@@ -347,7 +347,7 @@ function click_action(id)
 			if( endis_wl_radio == '1' || endis_wla_radio == '1' )
 				goto_formframe('WLG_wireless.htm');
 			else
-				goto_formframe('WLG_adv.htm');
+				goto_formframe('WLG_advanced.htm');
                 }
                 else if( id == "attached" )
                 {

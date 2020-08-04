@@ -29,7 +29,12 @@ function loadValue()
 	if(wan_proto == "3g") //3g
 	{
 		if(ping_result == "success")
-			this.location.href = "BRS_success.html";
+		{
+			if(dango_det_wan_type == "multiDetc")
+				this.location.href = "failover_restart_wait.html";
+			else
+				this.location.href = "BRS_success.html";
+		}
 		else if(ping_result == "failed")
 			this.location.href = "BRS_05_networkIssue.html";
 	}

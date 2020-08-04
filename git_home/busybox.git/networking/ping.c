@@ -13,6 +13,7 @@
  */
 
 #include <netinet/ip_icmp.h>
+#include <net/if.h>
 #include "busybox.h"
 
 enum {
@@ -143,6 +144,8 @@ static struct sockaddr_in pingaddr;
 static struct sockaddr_in sourceaddr;
 static int pingsock = -1;
 static unsigned datalen; /* intentionally uninitialized to work around gcc bug */
+static int if_index;
+static struct ifreq ifr;
 
 static unsigned long ntransmitted, nreceived, nrepeats, pingcount;
 static int myid;
@@ -322,12 +325,20 @@ static void unpack(char *buf, int sz, struct sockaddr_in *from)
 static void ping(const char *host)
 {
 	char packet[datalen + MAXIPLEN + MAXICMPLEN];
-	int sockopt;
+	int sockopt,r;
 
 	pingsock = create_icmp_socket();
 
 	if (sourceaddr.sin_addr.s_addr) {
 		xbind(pingsock, (struct sockaddr*)&sourceaddr, sizeof(sourceaddr));
+	}
+
+	if(ifr.ifr_name != NULL){
+
+		r = setsockopt(pingsock, SOL_SOCKET, SO_BINDTODEVICE, &ifr, sizeof(ifr));
+		if(r){
+			 bb_error_msg_and_die("cannot bind to interface");
+		}
 	}
 
 	memset(&pingaddr, 0, sizeof(struct sockaddr_in));
@@ -414,12 +425,21 @@ int ping_main(int argc, char **argv)
 	if (option_mask32 & 2) pingcount = xatoul(opt_c); // -c
 	if (option_mask32 & 4) datalen = xatou16(opt_s); // -s
 	if (option_mask32 & 8) { // -I
-/* TODO: ping6 accepts iface too:
-		if_index = if_nametoindex(*argv);
-		if (!if_index) ...
-make it true for ping. */
-		if (parse_nipquad(opt_I, &sourceaddr))
-			bb_show_usage();
+		if_index = if_nametoindex(opt_I);
+		if (!if_index){
+
+			if (parse_nipquad(opt_I, &sourceaddr))
+				bb_show_usage();
+			
+			opt_I = NULL;
+		}
+
+	    if(opt_I){
+#ifndef IFNAMSIZ
+			enum{ IFNAMSIZ = 16 };
+#endif
+	        strncpy(ifr.ifr_name,opt_I, IFNAMSIZ);
+		}
 	}
 
 	myid = (int16_t) getpid();

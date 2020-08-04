@@ -185,6 +185,8 @@ bh_connect_success_2="Ez az útválasztó a következő előre megadott beállí
 
 bh_network_key="hálózati kulcs (jelszó)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Az útválasztó WPA2-PSK vezeték nélküli biztonsággal van eleve ellátva a hálózat illetéktelen hozzáférés elleni védelme érdekében. Vezeték nélküli hálózatra való csatlakozáshoz hálózati kulcsot (jelszót) kell megadnia. Az előzetesen megadott beállítások a készülék egyedi adatai, akár a gyári szám.  Ha szeretné ezeket módosítani, később megteheti ezt az útválasztó webes felhasználói felületének Vezeték nélküli beállítások képernyőjén."
 
 bh_success_no_wireless_security_1 ="A vezeték nélküli biztonság nem engedélyezett ezen az útválasztón. A NETGEAR nyomatékosan ajánlja, hogy "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Töltse le a következő útválasztó-alkalmazásokat:"
+bh_genie_app="<b>genie alkalmazás.</b> Ez egy személyes infófal, ahol nyomon követheti, ellenőrizheti és helyre hozhatja az otthoni hálózatot."
+bh_rs_vault_app="<b>ReadySHARE Vault alkalmazás (csak Windowsra).</b> Rendszeresen automatikus biztonsági mentést készít Windowsos számítógépről az útválasztóhoz csatlakoztatott USB-s meghajtóra."
 bh_exit_mark="Kilépés"
 bh_previous="Vissza"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="Kérés feldolgozása…"
+bh_downloading="Letöltés…"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="A genie alkalmazás letöltődése után telepítse az alkalmazást."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="A genie alkalmazás telepítése után kattintson a Tovább gombra az útválasztó beállításainak véglegesítéséhez."
 bh_dl_vault1="A ReadySHARE Vault alkalmazás letöltődése után telepítse az alkalmazást."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="A ReadySHARE Vault alkalmazás telepítése után kattintson a Tovább gombra az útválasztó beállításainak véglegesítéséhez."
 
 //firmware checking and update
 bh_wait_upg_head="Készülékszoftver-frissítési segéd"

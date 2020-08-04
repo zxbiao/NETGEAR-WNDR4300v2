@@ -27,6 +27,7 @@ define Package/net-disk/install
 	install -d -m0755 $(1)/usr/sbin
 	install -m0755 $(PKG_BUILD_DIR)/net-disk $(1)/usr/sbin/
 	install -m0755 $(PKG_BUILD_DIR)/usb_led $(1)/usr/sbin/
+	install -m0755 $(PKG_BUILD_DIR)/dongle_led $(1)/usr/sbin/
 	install -m0755 $(PKG_BUILD_DIR)/usb_led_stop $(1)/usr/sbin/
 endef
 

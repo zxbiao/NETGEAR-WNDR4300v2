@@ -604,7 +604,8 @@ void primary_loop(int usd, int num_probes, int cycle_time)
 
 enum {
 	NET_PPP = 1,
-	NET_OTHER	// BPA & DHCP & StaticIP
+	NET_OTHER,	// BPA & DHCP & StaticIP
+	NET_LTE_DHCP
 };
 
 struct in_addr get_ipaddr(char *ifname)
@@ -670,13 +671,22 @@ static inline int bpa_up(void)
 
 static int net_verified(int *modep)
 {
-	char *p;
+	char *p, *mobile_ifname;
 	int mode, alive;
 
 	p = config_get("wan_proto");
 	if (!strcmp(p, "pppoe") ||!strcmp(p, "pptp")) {
 		mode = NET_PPP;
 		alive = ppp_up();
+        } else if (!strcmp(p, "3g")) {
+                mobile_ifname = config_get("wan_mobile_ifname");
+                if(!strcmp(mobile_ifname, "ppp0")) {
+                      mode = NET_PPP;
+                      alive = ppp_up();
+                } else {
+                      mode = NET_LTE_DHCP;
+                      alive = 1;
+               }
 	} else if (!strcmp(p, "bigpond")) {
 		mode = NET_OTHER;
 		alive = bpa_up();
@@ -706,6 +716,8 @@ static int wan_conn_up(void)
 		ip.s_addr = 0;
 	else if (mode == NET_PPP)
 		ip = get_ipaddr(PPP_IFNAME);
+	else if (mode == NET_LTE_DHCP)
+		ip = get_ipaddr("eth2");
 	else if (ap_value == 1)
 		ip = get_ipaddr(config_get("lan_ifname"));
 	else

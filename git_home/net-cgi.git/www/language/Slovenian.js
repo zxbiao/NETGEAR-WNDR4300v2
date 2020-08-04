@@ -185,6 +185,8 @@ bh_connect_success_2="Za ta usmerjevalnik je bilo vnaprej nastavljeno enolično 
 
 bh_network_key="omrežni ključ (geslo)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Za usmerjevalnik je bila vnaprej nastavljena brezžična zaščita WPA2-PSK, ki omrežje ščiti pred neželenim dostopom. Če se želite pridružiti brezžičnem omrežju, morate nastaviti omrežni ključ (geslo). Te prednastavitve so enolične za to napravo, podobno kot serijska številka.  Če jih želite spremeniti, lahko to storite pozneje na zaslonu Brezžične nastavitve ali v uporabniškem vmesniku usmerjevalnika."
 
 bh_success_no_wireless_security_1 ="Varnost brezžičnega omrežja za ta usmerjevalnik ni omogočena. NETGEAR močno priporoča, "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enables automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Prenesi naslednje aplikacije za usmerjevalnik:"
+bh_genie_app="<b>Aplikacija genie.</b> Osebna nadzorna plošča za spremljanje, upravljanje in odpravljanje težav domačega omrežja."
+bh_rs_vault_app="<b>Aplikacija ReadySHARE Vault (samo za računalnike Windows).</b> Omogoča samodejno neprekinjeno varnostno kopiranje vsebine računalnika Windows na pogon USB, ki je priključen na usmerjevalnik."
 bh_exit_mark="Izhod"
 bh_previous="Nazaj"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="Obdelava zahteve ..."
+bh_downloading="Prenašanje …"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="Po končanem prenosu namesti aplikacijo genie."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="Po nastavitvi aplikacije genie kliknite gumb Naprej, da končate s konfiguracijo usmerjevalnika."
 bh_dl_vault1="Po končanem prenosu namesti aplikacijo ReadySHARE Vault."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="Po nastavitvi aplikacije ReadySHARE Vault kliknite gumb Naprej, da končate s konfiguracijo usmerjevalnika."
 
 //firmware checking and update
 bh_wait_upg_head="Pomočnik za nadgradnjo vdelane programske opreme"

@@ -34,6 +34,7 @@
 #else
 #define _PATH_RESOLV	 _ROOT_PATH "/etc/ppp/resolv.conf"
 #endif
+#define _PATH_RESOLV_TMP "/tmp/resolv_for_failover.conf"
 
 #define _PATH_USEROPT	 ".ppprc"
 #define	_PATH_PSEUDONYM	 ".ppp_pseudonym"

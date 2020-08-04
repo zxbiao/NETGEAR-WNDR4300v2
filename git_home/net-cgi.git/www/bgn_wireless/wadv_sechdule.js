@@ -146,7 +146,7 @@ function check_wireless_schedule(chan_type, btn_flag)
                                 else
                                 {
                                         cf.submit_flag.value = "wireless_schedule_delete";
-                                        cf.action = "/apply.cgi?/WLG_adv.htm timestamp="+ts;
+                                        cf.action = "/apply.cgi?/WLG_advanced.htm timestamp="+ts;
 					cf.submit();
                                 }
                         }

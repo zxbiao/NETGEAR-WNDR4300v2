@@ -37,6 +37,7 @@ start() {
 	}
 
 	/bin/datalib
+	/bin/mobiled
 
 	# Check the Calibration Data.
 	[ "x$(/bin/config get factory_mode)" = "x1" ] || /sbin/check_board_parameter
@@ -60,7 +61,15 @@ start() {
 		sh /etc/rc.local
 	}
 
-	[ `/bin/config get endis_ipv6_logo_test` = "1" ] && /bin/config set wan_endis_rspToPing=1
+	# for ipv6 logo test
+	local logo_test=`/bin/config get endis_ipv6_logo_test`
+	local wan6_type=`/bin/config get ipv6_type`
+	echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+	echo 1 > /proc/sys/dni_netfilter/ipv6_ip6frag_not_check_icmp
+	[ "x$logo_test" = "x1" ] && /bin/config set wan_endis_rspToPing=1
+	if [ "x$logo_test" = "x1" -a "x$wan6_type" = "xfixed" ]; then
+		echo 1 > /proc/sys/net/ipv6/ipv6_ping6_interface
+	fi
 
 	# generate the firewall rule file after loading the configuration data.
 	/usr/sbin/net-wall rule

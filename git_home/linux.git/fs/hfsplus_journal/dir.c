@@ -17,6 +17,11 @@
 #include "hfsplus_fs.h"
 #include "hfsplus_raw.h"
 
+u32 pre_pos = 0;
+u32 file_id = 0;
+char namebuf[128] = {0};
+struct hfs_find_data prefd;
+
 static inline void hfsplus_instantiate(struct dentry *dentry,
 				       struct inode *inode, u32 cnid)
 {
@@ -120,11 +125,41 @@ fail:
 	return ERR_PTR(err);
 }
 
+int hfs_check_node_page(struct hfs_bnode *node)
+{
+	if (!node)
+		return 0;
+	
+	struct hfs_btree *tree = node->tree;
+        int i;
+
+	for (i = 0; i < tree->pages_per_bnode; i++) {
+		if (!node->page[i]) {
+			printk(KERN_DEBUG "check node 0x%08x page %d null !\n", node, i);
+			continue;
+		}
+		if (PageDirty(node->page[i])) {
+			printk(KERN_DEBUG "check node 0x%08x page %d dirty !\n", node, i);
+			return 0;
+		}
+		if (!PageUptodate(node->page[i])) {
+			printk(KERN_DEBUG "node 0x%08x page %d should be uptodated !\n", node, i);
+			return 0;
+		}
+		if (PageLocked(node->page[i])) {
+			printk(KERN_DEBUG "check node 0x%08x page %d locked !\n", node, i);
+			return 0;
+		}
+	}
+	printk(KERN_DEBUG "bnode 0x%08x has %d pages, check result is OK !\n", node, tree->pages_per_bnode);
+	return 1;
+}
+
 static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 {
 	struct inode *inode = filp->f_path.dentry->d_inode;
 	struct super_block *sb = inode->i_sb;
-	int len, err;
+	int len, err, loop_count = 0, state = 0, simple_search = 0;
 	char strbuf[HFSPLUS_MAX_STRLEN + 1];
 	hfsplus_cat_entry entry;
 	struct hfs_find_data fd;
@@ -134,6 +169,13 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 
 	if (filp->f_pos >= inode->i_size)
 		return 0;
+	
+	if (!strncmp("bands", filp->f_path.dentry->d_name.name, 5) && !strncmp("bands", namebuf, 5))
+		if (pre_pos == (u32)filp->f_pos) {
+			state = 1;
+			printk(KERN_DEBUG "hfsplus_readdir name: %s prepos: %u curpos: %u !\n", filp->f_path.dentry->d_name.name, pre_pos, (u32)filp->f_pos);
+		}
+	strncpy(namebuf, filp->f_path.dentry->d_name.name, 5);
 
 	if ((err = hfsplus_journal_start(__FUNCTION__, sb, &hfsplus_handle)))
 		return err;
@@ -169,18 +211,35 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 		/* fall through */
 	default:
 		if (filp->f_pos >= inode->i_size)
-			goto out;
-		err = hfs_brec_goto(&hfsplus_handle, &fd, filp->f_pos - 1);
-		if (err)
-			goto out;
-	}
+                        goto out;
+		if (state == 1 && 1 + prefd.record < prefd.bnode->num_recs) {
+			struct hfs_bnode *node = NULL;
+			node = hfs_bnode_findhash(prefd.tree, prefd.bnode->this);
+			if (node && hfs_check_node_page(node) && 1 + prefd.record < node->num_recs) {
+				simple_search = 1;
+				hfsplus_find_cat(&hfsplus_handle, sb, file_id, &fd);
+			} else {
+				 printk(KERN_DEBUG "bnode %u need to do search !\n", prefd.bnode->this);
+				 err = hfs_brec_goto(&hfsplus_handle, &fd, filp->f_pos - 1);
+				 if (err)
+				 	goto out;
+			}
 
+		} else {
+			err = hfs_brec_goto(&hfsplus_handle, &fd, filp->f_pos - 1);
+			if (err)
+				goto out;
+		}
+	}
+	if (state == 1)
+		printk(KERN_DEBUG "search record: %d, bnode: 0x%08x, pos: %u state: %d !\n", fd.record, fd.bnode, (u32)filp->f_pos, atomic_read(&(fd.bnode->refcnt)));
 	for (;;) {
 		if (be32_to_cpu(fd.key->cat.parent) != inode->i_ino) {
 			printk(KERN_ERR "hfs: walked past end of dir\n");
 			err = -EIO;
 			goto out;
 		}
+		loop_count++;
 		hfs_bnode_read(fd.bnode, &entry, fd.entryoffset, fd.entrylength);
 		type = be16_to_cpu(entry.type);
 		len = HFSPLUS_MAX_STRLEN;
@@ -196,6 +255,7 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 			if (HFSPLUS_SB(sb).hidden_dir &&
 			    HFSPLUS_SB(sb).hidden_dir->i_ino == be32_to_cpu(entry.folder.id))
 				goto next;
+			file_id = be32_to_cpu(entry.folder.id);
 			if (filldir(dirent, strbuf, len, filp->f_pos,
 				    be32_to_cpu(entry.folder.id), DT_DIR))
 				break;
@@ -205,6 +265,7 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 				err = -EIO;
 				goto out;
 			}
+			file_id = be32_to_cpu(entry.file.id);
 			if (filldir(dirent, strbuf, len, filp->f_pos,
 				    be32_to_cpu(entry.file.id), DT_REG))
 				break;
@@ -217,6 +278,10 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 		filp->f_pos++;
 		if (filp->f_pos >= inode->i_size)
 			goto out;
+		if (simple_search == 1 && atomic_read(&(fd.bnode->refcnt)) < 1) {
+			printk(KERN_DEBUG "ERROR for bnode: %u refcnt count !\n");
+			hfs_bnode_get(fd.bnode);
+		}
 		err = hfs_brec_goto(&hfsplus_handle, &fd, 1);
 		if (err)
 			goto out;
@@ -234,8 +299,14 @@ static int hfsplus_readdir(struct file *filp, void *dirent, filldir_t filldir)
 	}
 	memcpy(&rd->key, fd.key, sizeof(struct hfsplus_cat_key));
 out:
+	prefd.record = fd.record;
+	prefd.bnode = fd.bnode;
+	prefd.tree = fd.tree;
+	if (state == 1)
+                printk(KERN_DEBUG "loop %d, record: %d, bnode: 0x%08x, pos: %u !\n\n", loop_count, fd.record, fd.bnode, (u32)filp->f_pos);
 	hfs_find_exit(&hfsplus_handle, &fd);
 	hfsplus_journal_stop(&hfsplus_handle);
+	pre_pos = (u32)filp->f_pos;
 	return err;
 }
 

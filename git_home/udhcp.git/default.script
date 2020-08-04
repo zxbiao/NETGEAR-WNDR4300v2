@@ -104,6 +104,12 @@ elif [ "$WAN_PROTO" = "pppoe" ]; then
 elif [ "$($CONFIG get wan_ether_dns_assign)" = "1" ]; then
 	DNS_ASSIGN=1
 fi
+
+#under 3g, we must ignore config wan_ether_dns_assign, so set dns file here.
+if [ "$WAN_PROTO" = "3g" ]; then
+        DNS_ASSIGN=0
+fi
+
 if [ "$DNS_ASSIGN" = "1" ]; then
 	touch /tmp/dhcpc_resolv.conf
 	RESOLV_CONF="/tmp/dhcpc_resolv.conf"
@@ -317,7 +323,7 @@ case "$1" in
 			/usr/sbin/ripd
 
 			# As New GUI spec V10, CD-less feature require resolve and ping www.netgear.com
-			if [ "$($CONFIG get dns_hijack)" = "1" -a "$($CONFIG get hijack_process)" = "1" ]; then
+			if [ "$($CONFIG get dns_hijack)" = "1" -a "$($CONFIG get hijack_process)" = "1" ] || [ "$WAN_PROTO" = "3g" ]; then
 				ping -c 5 www.netgear.com > /tmp/ping_result &
 				sleep 2
 			fi
@@ -326,6 +332,10 @@ case "$1" in
 			if [ "$WAN_PROTO" != "pppoe" ] && [ "$WAN_PROTO" != "pptp" ] && [ "$WAN_PROTO" != "l2tp" ]; then
 				/sbin/ledcontrol -n wan -c green -s on
 			fi
+
+			if [ "$WAN_PROTO" = "3g" ]; then
+				/etc/init.d/dnsmasq stop ; /etc/init.d/dnsmasq start
+			fi	
 
 			# if IP address re-assigned, we will check qos bandwidth.
 			local qos_enable=`$CONFIG get qos_endis_on`

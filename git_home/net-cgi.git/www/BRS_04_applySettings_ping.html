@@ -17,6 +17,7 @@ var ping_result = "<% hijack_apply_result("/tmp/ping_result") %>"
 var wan_proto="<% cfg_get("wan_proto") %>";
 var select_basic="<% cfg_get("internet_type") %>";  //select_basic = 1 dhcp or static, select_basic=0 pppoe or pptp 
 var select_type = "<% cfg_get("internet_ppp_type") %>"; //select_type = 0 pppoe ,select_type = 1 pptp
+var dango_det_wan_type = "<% cfg_get("dango_det_wan_type") %>";
 </script>
 
 </head>

@@ -141,6 +141,22 @@ void check_host_id(char *buf)
 	}
 }
 
+void dongle_attached_process(const char *path, const char *intf) 
+{
+	char cmd[128];
+	
+	if (!path && !intf) 
+		return;
+	
+	sprintf(cmd, "/etc/usb_modem_hotplug %s on &", intf);
+	system(cmd);
+
+	memset(cmd, 0, 128);
+
+	sprintf(cmd, "/sbin/manage_usb_led.sh %s on &", path);
+	system(cmd);
+}
+
 void parse_uevent_msg(char *buf, int buf_size)
 {
 	int bufpos;
@@ -172,6 +188,14 @@ void parse_uevent_msg(char *buf, int buf_size)
 			msg.major = &key[6];
 		else if (strncmp(key, "MINOR=", 6) == 0)
 			msg.minor = &key[6];
+		else if (strncmp(key, "MODALIAS=", 9) == 0)
+			msg.modalias = &key[9];
+		else if (strncmp(key, "INTERFACE=", 10) == 0)
+                        msg.interface = &key[10];
+	}
+
+	if (msg.modalias != NULL && msg.interface != NULL) {
+		dongle_attached_process(msg.devpath, msg.interface);
 	}
 
 	if (msg.seqnum == NULL ||msg.action == NULL ||strcmp(msg.action, "add"))

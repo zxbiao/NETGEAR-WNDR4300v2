@@ -311,7 +311,7 @@ function check_wizard_pptp(check,page)
 			*/
             		if ( checkipaddr(cf.pptp_serv_ip.value) == true )
             		{
-				if( cf.pptp_myip.value != "" )
+				if( cf.pptp_myip.value != "" && !isSameSubNet(cf.pptp_serv_ip.value,cf.pptp_subnet.value,cf.pptp_myip.value,cf.pptp_subnet.value))
 				{
 					if(cf.pptp_gateway.value == "..." || cf.pptp_gateway.value == "" )
 					{

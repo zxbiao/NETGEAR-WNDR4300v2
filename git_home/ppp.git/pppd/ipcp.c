@@ -80,6 +80,7 @@ bool	disable_defaultip = 0;	/* Don't use hostname for default IP adrs */
 bool	usepeerdns;		/* Ask peer for DNS addrs */
 
 bool	no_replace_dns = 0; /* Don't replace the dns saved in file */
+bool detectlink = 0; /* 0: no change. 1: active detect functions(for failvoer) */
 unsigned int prev_peerdns1; /* Last session's primary dns */
 unsigned int prev_peerdns2; /* Last session's secondary dns */
 
@@ -241,7 +242,8 @@ static option_t ipcp_option_list[] = {
     { "IP addresses", o_wild, (void *) &setipaddr,
       "set local and remote IP addresses",
       OPT_NOARG | OPT_A2PRINTER, (void *) &printipaddr },
-
+    { "detectlink", o_bool, &detectlink,
+      "Active detect functions(for failvoer)", 1 },
     { NULL }
 };
 
@@ -1918,7 +1920,8 @@ ipcp_up(f)
      * Use `system` to execute the ip-down script until it is finished,
      * then pppd continues RUNNING.
      */
-    run_command(path_ipup);
+    if(!detectlink)
+	    run_command(path_ipup);
 #else    
     if (ipcp_script_state == s_down && ipcp_script_pid == 0) {
 	ipcp_script_state = s_up;
@@ -1985,7 +1988,8 @@ ipcp_down(f)
      * Use `system` to execute the ip-down script until it is finished, 
      * then pppd continues RUNNING. 
      */
-    run_command(path_ipdown);
+    if(!detectlink)
+	    run_command(path_ipdown);
 #else
     if (ipcp_script_state == s_up && ipcp_script_pid == 0) {
 	ipcp_script_state = s_down;
@@ -2137,7 +2141,10 @@ create_resolv(peerdns1, peerdns2)
         return;
     }
     
-    f = fopen(_PATH_RESOLV, "w");
+    if(!detectlink)
+        f = fopen(_PATH_RESOLV, "w");
+    else
+        f = fopen(_PATH_RESOLV_TMP, "w");
     if (f == NULL) {
 	error("Failed to create %s: %m", _PATH_RESOLV);
 	return;

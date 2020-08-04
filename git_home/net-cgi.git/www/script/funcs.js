@@ -32,6 +32,13 @@ function check_DNS(dnsaddr1,dnsaddr2,wan_assign,wan_ip)
                 alert(bh_dns_must_specified);
                 return false;
         }
+
+	if(dnsaddr1!="" && dnsaddr2!="" && dnsaddr1==dnsaddr2)
+	{
+		alert(bh_invalid_ip);
+		return false;
+	}
+
         return true;
 }
 
@@ -83,6 +90,13 @@ function check_three_DNS(dnsaddr1,dnsaddr2,dnsaddr3,wan_assign,wan_ip)
                 alert(bh_dns_must_specified);
                 return false;
         }
+
+	if(dnsaddr1!="" && (dnsaddr1==dnsaddr2 || dnsaddr1==dnsaddr3) || dnsaddr2!="" && dnsaddr2==dnsaddr3)
+	{
+		alert(bh_invalid_ip);
+		return false;
+	}
+
         return true;
 }
 

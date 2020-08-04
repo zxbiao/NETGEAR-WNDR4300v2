@@ -390,6 +390,13 @@ function check_DNS(dnsaddr1,dnsaddr2,wan_assign,wan_ip)
                 alert("$dns_must_specified");
                 return false;
         }
+
+	if(dnsaddr1!="" && dnsaddr2!="" && dnsaddr1==dnsaddr2)
+	{
+		alert("$invalid_ip");
+		return false;
+	}
+
         return true;
 }
 
@@ -1258,26 +1265,6 @@ function getkey(type, e)
 		return false;
 }
 
-
-
-function changesectype(fname)
-{
-	var html_href;
-	if(fname.options[0].selected == true) html_href = "security_off.asp";
-	else if(fname.options[1].selected == true) html_href = "wep.asp";
-	else if(fname.options[2].selected == true) html_href = "wpa.asp";
-	else if(fname.options[3].selected == true) html_href = "wpa2.asp";
-	else if(fname.options[4].selected == true) html_href = "wpas.asp";
-
-	location.href = html_href;
-}
-
-function printableKeyFilter() 
-{
-	if (event.keyCode < 32 || event.keyCode > 126)
-		event.returnValue = false;
-}
-
 function checkpsk(passphrase, passphrase_len)
 {
 	var len = passphrase.value.length;
@@ -1333,6 +1320,7 @@ function check_key(key,wep_bit)
 
 	if(wep_bit == 10)
 		ascii_len = 5;
+
 	else if(wep_bit == 26)
 		ascii_len = 13;
 
@@ -1655,68 +1643,6 @@ function HexToAscii(wepenc,wep_key_no,I,S,D) {
 	return S;
 }
 
-function PassPhrase40(passphraseStr, wepenc, wep_key_no, KEY1, KEY2, KEY3, KEY4)
-{
-	var seed = 0;
-	var pseed = new Array(0, 0, 0, 0);
-	var pkey = new Array(4);
-	var asciiObj = new Array(4);
-	Length = passphraseStr.value.length;
-
-	if(Length != 0) {
-		for (i=0; i<Length; i++ ) {
-			pseed[i%4] ^= passphraseStr.value.charCodeAt(i);
-		}
-		seed = pseed[0];
-		seed += pseed[1] << 8;
-		seed += pseed[2] << 16;
-		seed += pseed[3] << 24;
-	}
-
-	KEY1.value = KEY2.value = "";
-	KEY3.value = KEY4.value = "";
-
-	// init key array
-	pkey[0] = KEY1;
-	pkey[1] = KEY2;
-	pkey[2] = KEY3;
-	pkey[3] = KEY4;
-
-	for(j=0; j<4; j++) {
-		for (i=0; i<5 ;i++ )  {
-			seed = (214013 * seed) & 0xffffffff;
-
-			if(seed & 0x80000000) {
-				seed = (seed & 0x7fffffff) + 0x80000000 + 0x269ec3;
-			}
-			else {
-				seed = (seed & 0x7fffffff) + 0x269ec3;
-			}
-
-			temp = ((seed >> 16) & 0xff);
-			if(temp < 0x10) {
-				pkey[j].value += "0" + temp.toString(16).toUpperCase();
-			}
-			else {
-				pkey[j].value += temp.toString(16).toUpperCase();
-			}
-		}
-	}
-
-	asciiObj[0] = "";
-	asciiObj[1] = "";
-	asciiObj[2] = "";
-	asciiObj[3] = "";
-
-	for(k=0; k<4; k++) {
-		HexToAscii(wepenc, wep_key_no, k, pkey[k].value, asciiObj[k]);
-	}
-
-	wepkey1 = pkey[0].value;
-	wepkey2 = pkey[1].value;
-	wepkey3 = pkey[2].value;
-	wepkey4 = pkey[3].value;
-}
 
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
@@ -1891,68 +1817,6 @@ function calcMD5(str)
 		d = add(d, oldd);
 	}
 	return rhex(a) + rhex(b) + rhex(c) + rhex(d);
-}
-
-function PassPhrase104(passphraseStr, KEY1, KEY2, KEY3, KEY4) 
-{
-
-	var     pseed2 = "";
-	Length2 = passphraseStr.value.length;
-
-	for(p=0; p<64; p++) {
-		tempCount = p % Length2;
-		pseed2 += passphraseStr.value.substring(tempCount, tempCount+1);
-	}
-	md5Str = calcMD5(pseed2);
-
-	KEY1.value = md5Str.substring(0, 26).toUpperCase();
-	KEY2.value = md5Str.substring(0, 26).toUpperCase();
-	KEY3.value = md5Str.substring(0, 26).toUpperCase();
-	KEY4.value = md5Str.substring(0, 26).toUpperCase();
-}
-
-function clickgenerate(form)
-{
-
-	if(form.passphraseStr.value.length == 0 )
-	{
-	//	alert("$gene_phrase")
-			return false;
-	} 
-	for(i=0;i<form.passphraseStr.value.length;i++)
-	{
-		if(isValidChar_space(form.passphraseStr.value.charCodeAt(i))==false)
-		{
-			alert("$notallowpassp");
-			return false;
-		}
-	}			
-	if(form.wepenc.options[0].selected == true)
-		PassPhrase40(form.passphraseStr, form.wepenc, form.wep_key_no, form.KEY1, form.KEY2, form.KEY3, form.KEY4);
-	else
-		PassPhrase104(form.passphraseStr, form.KEY1, form.KEY2, form.KEY3, form.KEY4);
-	form.generate_flag.value=1;
-}
-function clickgenerate_a(form)
-{
-	if(form.passphraseStr_an.value.length == 0 )
-	{
-	//	alert("$gene_phrase")
-			return false;
-	} 
-	for(i=0;i<form.passphraseStr_an.value.length;i++)
-	{
-		if(isValidChar_space(form.passphraseStr_an.value.charCodeAt(i))==false)
-		{
-			alert("$notallowpassp");
-			return false;
-		}
-	}			
-	if(form.Wepenc_an.options[0].selected == true)
-		PassPhrase40(form.passphraseStr_an, form.Wepenc_an, form.wep_key_no_an, form.KEY1_an, form.KEY2_an, form.KEY3_an, form.KEY4_an);
-	else
-		PassPhrase104(form.passphraseStr_an, form.KEY1_an, form.KEY2_an, form.KEY3_an, form.KEY4_an);
-	form.generate_flag.value=1;
 }
 
 function doPortChange(check)
@@ -2345,14 +2209,6 @@ function isValidChar(each_char)
 		return false;
 }
 
-function isValidCharFolderName(each_char)
-{
-	if( each_char < 32 || each_char > 126)
-		return false;
-	else if( each_char == 34 || each_char == 42 || each_char == 47 || each_char == 58 || each_char == 60  || each_char == 62 || each_char == 63 || each_char == 92 || each_char == 124)
-		return false;
-}
-
 function isValidDdnsHost(each_char)
 {
 	if (!(((each_char>47) && (each_char<58))||(each_char==45)||(each_char==46)||((each_char>64) && (each_char<91))||((each_char>96) && (each_char<123)) || (each_char==8)||(each_char==0))) 
@@ -2395,13 +2251,6 @@ function remove_space(str)
 	return str;
 }
 
-function printPage()
-{
-	if (window.print)
-		window.print();
-	else
-		alert("$not_support_print");
-}
 function top_left_nolink()
 {
 	if( parent.multi_lang_router_flag == 1 )

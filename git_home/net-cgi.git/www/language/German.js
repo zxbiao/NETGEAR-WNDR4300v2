@@ -184,6 +184,8 @@ bh_connect_success_2="Für den Router wurde folgender eindeutiger Netzwerkname (
 
 bh_network_key="Netzwerkschlüssel (Passwort) voreingestellt"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Damit Ihr Netzwerk vor unerwünschtem Zugriff geschützt ist, wurde der Router bereits mit WPA2-PSK-Sicherheit vorkonfiguriert. Um eine Verbindung mit dem drahtlosen Netzwerk herzustellen, geben Sie den Netzwerkschlüssel (Passwort) ein. Diese Voreinstellungen sind bei diesem Gerät individuell, wie z. B. eine Seriennummer.  Sie können die Einstellungen später in der Benutzeroberfläche des Routers auf dem Bildschirm WLAN-Konfiguration ändern."
 
 bh_success_no_wireless_security_1 ="Für diesen Router sind keine WLAN-Sicherheitseinstellungen aktiviert. NETGEAR empfiehlt dringend, dass Sie "
@@ -370,19 +372,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Laden Sie die folgenden Router-Anwendungen herunter:"
+bh_genie_app="<b>genie App</b>– ein persönliches Dashboard, über das Sie Ihr Heimnetzwerk überwachen, steuern und reparieren können."
+bh_rs_vault_app="<b>ReadySHARE Vault App (nur Windows)</b>– aktiviert die automatische und kontinuierliche Sicherung der Daten Ihres Windows-PCs auf einem an Ihren Router angeschlossenen USB-Laufwerk."
 bh_exit_mark="Beenden"
 bh_previous="Zurück"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="Anfrage wird bearbeitet…"
+bh_downloading="Wird heruntergeladen …"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="Installieren Sie die genie App, nachdem der Download abgeschlossen ist."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="Klicken Sie auf die Schaltfläche Weiter, nachdem Sie die genie App installiert haben, um die Konfiguration des Routers abzuschließen."
 bh_dl_vault1="Installieren Sie die ReadySHARE Vault App, nachdem der Download abgeschlossen ist."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="Klicken Sie auf die Schaltfläche Weiter, nachdem Sie die ReadySHARE Vault App installiert haben, um die Konfiguration des Routers abzuschließen."
 
 //firmware checking and update
 bh_wait_upg_head="Assistent für die Aktualisierung der Firmware"

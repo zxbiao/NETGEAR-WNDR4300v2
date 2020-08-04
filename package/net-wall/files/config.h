@@ -55,6 +55,9 @@
 
 #define DNI_QQoS_SUPPORT        1
 
+/* Support ip_mac binding function */
+#define DNI_IP_MAC	1
+
 /* @ '"Block Site/URL Filtering" @ */
 #define DNI_BLOCK_URL_SUPPORT	1
 

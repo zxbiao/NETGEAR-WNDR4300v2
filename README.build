@@ -11,30 +11,30 @@ Note:
  Build code
 ============
 
-1. uncompress source code file _gpl_src.zip.
+1. uncompress source code file WNDR4300v2-V1.0.0.32_gpl_src.zip.
 
-	unzip WNDR4300v2-V1.0.0.26_gpl_src.zip
+	unzip WNDR4300v2-V1.0.0.32_gpl_src.zip
 
-	bzip2 -d WNDR4300v2-V1.0.0.26_gpl_src.tar.gz.bz2
-	tar -zxf WNDR4300v2-V1.0.0.26_gpl_src.tar.gz
+	bzip2 -d WNDR4300v2-V1.0.0.32_gpl_src.tar.gz.bz2
+	tar -zxf WNDR4300v2-V1.0.0.32_gpl_src.tar.gz
 
 	bzip2 -d toolchain.tar.gz.bz2
-	tar -zxf toolchain.tar.gz -C WNDR4300v2-V1.0.0.26_gpl_src
+	tar -zxf toolchain.tar.gz -C WNDR4300v2-V1.0.0.32_gpl_src
 
 2. run following commands to build toolchain and firmware.
 
 	1) build toochain only.
-		cd WNDR4300v2-V1.0.0.26_gpl_src
+		cd WNDR4300v2-V1.0.0.32_gpl_src
 		cp configs/defconfig-wndr4300v2 .config
 		GIT_HOME=`pwd`/git_home make prepare V=99
 
 	2) build toolchain and firmware, if toolchain has built and no update, these commands
 	   will only build firmware and not re-build toolchain.
-		cd WNDR4300v2-V1.0.0.26_gpl_src
+		cd WNDR4300v2-V1.0.0.32_gpl_src
 		cp configs/defconfig-wndr4300v2 .config
 		GIT_HOME=`pwd`/git_home make V=99
 
-3. the final image is "bin/WNDR4300v2-V1.0.0.26.img".
+3. the final image is "bin/WNDR4300v2-V1.0.0.32.img".
 
 
 

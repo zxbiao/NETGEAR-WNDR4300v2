@@ -4,9 +4,11 @@
 var zip_type="<% cfg_get("download_zip_type")%>";
 var ifr = document.createElement("IFRAME");
 if(zip_type == "windows")
-	ifr.src="openvpn_windows.zip";
+	ifr.src="windows.zip";
 else if(zip_type == "nonwindows")
-	ifr.src="openvpn_nonwindows.zip";
+	ifr.src="nonwindows.zip";
+else if(zip_type == "smartphone")
+	ifr.src="smart_phone.ovpn";
 ifr.frameBorder = 0;
 ifr.scrolling ="no";
 ifr.width = 0;

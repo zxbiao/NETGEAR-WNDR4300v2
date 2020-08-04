@@ -4,13 +4,11 @@ function checkvpn(cf)
 	var int_port = parseInt(cf.vpn_port.value,10);
 	if(cf.enable_vpn.checked == true)
 	{
-		if(old_endis_ddns == "0" && (old_wan_assign == "0" || (old_wan_assign == "1" && select_basic != "1")))
+		if(old_endis_ddns != "1" && (old_wan_assign == "0" || (old_wan_assign == "1" && select_basic != "1")))
 		{
-			alert("$no_static_ip_ddns");
+			alert("$no_ddns");
 			return false;
 		}
-		if(old_endis_ddns == "0" && old_wan_assign == "1" && select_basic == "1")
-			alert("$no_ddns");
 		if(ipv6_type == "autoDetect" || ipv6_type == "pppoe" || ipv6_type == "dhcp" || ipv6_type == "fixed" || ipv6_type == "bridge" || ipv6_type == "6to4" || ipv6_type == "autoConfig")
 		{
 			alert("$no_enable_vpn_ipv6");
@@ -33,7 +31,17 @@ function checkvpn(cf)
 		cf.hidden_vpn_type.value="udp";
 	else if(cf.vpn_type[1].checked == true)
 		cf.hidden_vpn_type.value="tcp";
+	if(cf.tun_vpn_type[0].checked == true)
+		cf.hidden_tun_vpn_type.value="udp";
+	else if(cf.tun_vpn_type[1].checked == true)
+		cf.hidden_tun_vpn_type.value="tcp";
+	if(cf.vpn_port.value==cf.tun_vpn_port.value)
+	{
+		alert("Can't use the same port in TUN mode and TAP mode.");
+		return false;
+	}
 	cf.hidden_vpn_port.value=cf.vpn_port.value;
+	cf.hidden_tun_vpn_port.value=cf.tun_vpn_port.value;
 	if(cf.vpn_access[0].checked == true)
 		cf.hidden_vpn_access.value="auto";
 	else if(cf.vpn_access[1].checked == true)
@@ -156,6 +164,8 @@ function checkdownload(cf, num)
 		cf.download_button_type.value="windows";		
 	else if(num == 2)
 		cf.download_button_type.value="nonwindows";
+	else if(num == 3)
+		cf.download_button_type.value="smartphone";
 	cf.action="/apply.cgi?/vpn_frame.htm timestamp="+ts;
 	cf.submit_flag.value="vpn_compress_conf";
 	return true;

@@ -57,6 +57,8 @@ struct uevent_msg
 	char *seqnum;
 	char *major;
 	char *minor;
+	char *modalias;
+	char *interface;
 };
 
 extern struct list_head disks_list;

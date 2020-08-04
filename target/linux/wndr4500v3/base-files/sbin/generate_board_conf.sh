@@ -3,6 +3,9 @@
 CONFIG=/bin/config
 board_hw_id="$(/sbin/artmtd -r board_hw_id | cut -f 2 -d ":" | cut -f 7 -d "+")"
 
+/sbin/artmtd -r region
+firmware_region=`cat /tmp/firmware_region | awk '{print $1}'`
+
 #When board_model_id on HW board data area is WNDR4500v3
 if [ "$board_hw_id" = "5508012173" ];then
 	echo "WNDR4500v3" > /tmp/module_name
@@ -85,7 +88,13 @@ if [ "$board_hw_id" = "5508012175" ];then
 	#differnece in net-cgi
 	/bin/config set cgi_module_id="WNDR4300v2"
 	/bin/config set cgi_ctl_mod="wndr4300v2"
-	/bin/config set cgi_netgear_download="0"
+
+	if [ "x$firmware_region" = "xRU" -o "x$firmware_region" = "xPR" ] ;then
+		/bin/config set cgi_netgear_download="1"
+	else
+		/bin/config set cgi_netgear_download="0"
+	fi
+
 	/bin/config set cgi_mode_2="130"
 	/bin/config set cgi_mode_3="300"
 

@@ -282,6 +282,7 @@ extern bool	modem;		/* Use modem control lines */
 extern int	inspeed;	/* Input/Output speed requested */
 extern u_int32_t netmask;	/* IP netmask to set on interface */
 extern bool	usepeerdns;	/* Ask peer for DNS addrs */
+extern bool    detectlink;     /* Active detect functions(for failvoer) */
 extern bool	lockflag;	/* Create lock file to lock the serial dev */
 extern bool	nodetach;	/* Don't detach from controlling tty */
 extern bool	updetach;	/* Detach from controlling tty when link up */
@@ -740,6 +741,9 @@ extern int (*chap_passwd_hook) __P((char *user, char *passwd));
 /* Let a plugin snoop sent and received packets.  Useful for L2TP */
 extern void (*snoop_recv_hook) __P((unsigned char *p, int len));
 extern void (*snoop_send_hook) __P((unsigned char *p, int len));
+
+/*In failover detectlink mode, don't use default resolv.conf*/
+extern unsigned int dns_lookup(char *name, char *resolv_conf);
 
 /*
  * Inline versions of get/put char/short/long.

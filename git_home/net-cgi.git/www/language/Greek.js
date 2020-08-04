@@ -185,6 +185,8 @@ bh_connect_success_2="Αυτός ο δρομολογητής είναι προρ
 
 bh_network_key="το κλειδί δικτύου (κωδικός πρόσβασης)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Ο δρομολογητής σας είναι προρυθμισμένος με ασφάλεια ασύρματου δικτύου WPA2-PSK, για την προστασία του δικτύου σας από ανεπιθύμητη πρόσβαση. Για να συνδεθείτε στο ασύρματο δίκτυο, πρέπει να εισαγάγετε το κλειδί δικτύου (κωδικός πρόσβασης). Αυτές οι προκαθορισμένες ρυθμίσεις είναι μοναδικές και ισχύουν μόνο για αυτήν τη συσκευή, σαν σειριακός αριθμός.  Αν θελήσετε να τις αλλάξετε, μπορείτε να μεταβείτε στην οθόνη Ρυθμίσεις ασύρμ. δικτύου στη διαδικτυακή GUI του δρομολογητή."
 
 bh_success_no_wireless_security_1 ="Η ασύρματη ασφάλεια δεν είναι ενεργοποιημένη σε αυτό το δρομολογητή. Η NETGEAR συνιστά να "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Λήψη των ακόλουθων εφαρμογών δρομολογητή:"
+bh_genie_app="<b>εφαρμογή genie.</b> Ένας προσωπικός πίνακας εργαλείων που σας επιτρέπει να παρακολουθείτε, να χειρίζεστε και να επιδιορθώνετε το οικιακό σας δίκτυο."
+bh_rs_vault_app="<b>Εφαρμογή ReadySHARE Vault (Μόνο για υπολογιστές με Windows).</b> Ενεργοποιεί την αυτόματη συνεχή δημιουργία ενός αντιγράφου ασφαλείας για υπολογιστή με Windows σε μια μονάδα USB που είναι συνδεδεμένη με το δρομολογητή."
 bh_exit_mark="Έξοδος"
 bh_previous="Προηγούμενο"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="Γίνεται επεξεργασία του αιτήματός σας…"
+bh_downloading="Λήψη…"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="Εγκατάσταση της εφαρμογής genie μετά την ολοκλήρωση της λήψης."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="Κάντε κλικ στο κουμπί Επόμενο μετά την εγκατάσταση της εφαρμογής genie, για να ολοκληρώσετε τη ρύθμιση παραμέτρων του δρομολογητή."
 bh_dl_vault1="Εγκατάσταση της εφαρμογής ReadySHARE Vault μετά την ολοκλήρωση της λήψης."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="Κάντε κλικ στο κουμπί Επόμενο μετά την εγκατάσταση της εφαρμογής ReadySHARE Vault, για να ολοκληρώσετε τη ρύθμιση παραμέτρων του δρομολογητή."
 
 //firmware checking and update
 bh_wait_upg_head="Βοηθός αναβάθμισης υλικολογισμικού"

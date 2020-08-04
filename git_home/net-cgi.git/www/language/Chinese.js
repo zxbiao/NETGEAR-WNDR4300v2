@@ -185,6 +185,8 @@ bh_connect_success_2="该路由器已预设以下唯一的无线网络标识（S
 
 bh_network_key="网络密钥（密码）"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="您的路由器已预设WPA2-PSK无线安全设置，以防您的网络遭受未经授权的访问。要加入该无线网络，您必须输入网络密钥（密码）。这些预设设置对于该设备是唯一的，就像序列号一样。如需更改它们，可稍后在路由器配置界面的“无线设置”屏幕中进行更改。"
 
 bh_success_no_wireless_security_1 ="无线安全未在此路由器上启用。NETGEAR强烈建议 "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="中国联通"
 bh_coun20_isp_type3="中国电信"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="下载以下路由器应用程序："
+bh_genie_app="<b>精灵应用程序。</b> 一种个人控制面板，可让您监视、控制和修复您的家庭网络。"
+bh_rs_vault_app="<b>易共享 Vault 应用程序（仅适用于 Windows 计算机）。</b> 实现 Windows 计算机自动连续备份至连接到路由器的 USB 驱动盘。"
 bh_exit_mark="退出"
 bh_previous="上一步"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="正在处理您的请求…"
+bh_downloading="正在下载…"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="下载完成后安装精灵应用程序。"
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="安装精灵应用程序后单击下一步按钮以完成路由器配置。"
 bh_dl_vault1="下载完成后安装易共享 Vault 应用程序。"
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="安装易共享 Vault 应用程序后单击下一步按钮以完成路由器配置。"
 
 //firmware checking and update
 bh_wait_upg_head="固件升级助手"

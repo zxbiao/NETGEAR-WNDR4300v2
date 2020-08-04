@@ -119,6 +119,12 @@ start() {
 
 	# Start lld2d
 	/usr/sbin/lld2d $($CONFIG get lan_ifname)
+
+	# Since lan interface restart,we should do ipmac action because
+	# IPmac is related to lan static arp.
+	if [ "$($CONFIG get ipmac_binding_on)" = "1" ]; then
+	    /sbin/ip_mac start
+	fi
 }
 
 stop() {

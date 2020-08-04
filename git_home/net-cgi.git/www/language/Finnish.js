@@ -185,6 +185,8 @@ bh_connect_success_2="Tälle reitittimelle on määritetty valmiiksi seuraava yk
 
 bh_network_key="verkkoavain (salasana)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Reitittimeen on määritetty valmiiksi WPA2-PSK-salaus langattoman yhteyden suojaamiseksi luvattomilta käyttäjiltä. Yhteyden muodostaminen langattomaan verkkoon vaatii verkkoavaimen (salasanan). Valmiiksi määritetyt asetukset ovat yksilölliset tälle laitteelle sarjanumeron tapaan.  Halutessasi voit muuttaa asetuksia myöhemmin Langattomat asetukset -näytössä reitittimen Web-käyttöliittymässä. "
 
 bh_success_no_wireless_security_1 ="Langattoman verkon suojaus ei ole käytössä tässä reitittimessä. NETGEAR suosittelee painokkaasti "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Lataa seuraavat reitittimen sovellukset:"
+bh_genie_app="<b>genie-sovellus.</b> Henkilökohtainen hallintaohjelma, jolla voit tarkkailla ja ohjata kotiverkkoasi ja korjata sen."
+bh_rs_vault_app="<b>ReadySHARE Vault -sovellus (Vain Windows-tietokoneille).</b> Sallii Windows-tietokoneen automaattisen ja jatkuvan varmuuskopioinnin reitittimeen kytkettyyn USB-asemaan."
 bh_exit_mark="Poistu"
 bh_previous="Edellinen"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="Pyyntöä käsitellään…"
+bh_downloading="Lataa..."
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="Asenna genie-sovellus latauksen päätyttyä."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="Päätä reitittimen asetusten määrittely genie-sovelluksen asennuksen jälkeen napsauttamalla Seuraava-painiketta."
 bh_dl_vault1="Asenna ReadySHARE Vault -sovellus latauksen päätyttyä."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="Päätä reitittimen asetusten määrittely ReadySHARE Vault -sovelluksen asennuksen jälkeen napsauttamalla Seuraava-painiketta."
 
 //firmware checking and update
 bh_wait_upg_head="Ohjattu laiteohjelman päivitystoiminto"

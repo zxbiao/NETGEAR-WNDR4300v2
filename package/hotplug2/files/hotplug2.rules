@@ -10,10 +10,16 @@ SUBSYSTEM == block, DEVPATH is set, MAJOR is set, MINOR is set {
 #}
 
 # Load modules (what old hotplug did)
-MODALIAS is set {
-        exec modprobe -q %MODALIAS% ;
+ACTION == add, MODALIAS is set, INTERFACE is set {
+       exec modprobe -q %MODALIAS% ;
+               exec /sbin/manage_usb_led.sh ;
+               exec /etc/usb_modem_hotplug  %INTERFACE% on ;
 }
 
+ACTION == remove, MODALIAS is set, INTERFACE is set {
+               exec /sbin/manage_usb_led.sh ;
+               exec /etc/usb_modem_hotplug  %INTERFACE% off ;
+}
 # Create device nodes
 DEVPATH is set, MAJOR is set, MINOR is set {
         makedev /dev/%DEVICENAME% 0644

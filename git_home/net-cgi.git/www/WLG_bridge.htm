@@ -57,6 +57,9 @@ var dyn_get_bridge_ip_flag="<% cfg_get("bridge_ether_ip_assign") %>";
 var opener_apply_click=0;
 var notShow=0;
 
+var wps_alert="<% cfg_get("wps_alert") %>";
+<% cfg_set("wps_alert", "0") %>
+
 function bridge_display()
 {
 	var cf=document.forms[0];
@@ -221,6 +224,7 @@ function loadvalue()
 			form.BRIDGEPDAddr4.value=dns2_array[3];
 		}
 	}
+	showWps_alert();
 }
 
 function window_open_bridge()
@@ -250,7 +254,7 @@ function window_open_bridge()
 	</TD><!--$able_ap_mode-->
 </TR>
 <TR id=bridge_seting><TD colspan=4>	
-<input class="long_common_bt" type="button" name="bridge_set" value="$bridge_wireless_set" onClick='window_open_bridge();'>
+<input class="longest_common_bt" type="button" name="bridge_set" value="$bridge_wireless_set" onClick='window_open_bridge();'>
 </TD></TR>
 
 <TR><td colspan=4>&nbsp;&nbsp;</td></TR>

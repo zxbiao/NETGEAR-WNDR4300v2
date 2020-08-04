@@ -185,6 +185,8 @@ bh_connect_success_2="Bu yönlendirici, aşağıdaki benzersiz kablosuz ağ adı
 
 bh_network_key="ağ anahtarı (parola)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="Yönlendiriciniz, ağınızı istenmeyen erişimlere karşı korumak için WPA2-PSK kablosuz güvenliği ile önceden ayarlanmıştır. Kablosuz ağa katılmak için, ağ anahtarını (parola) girmeniz gerekir. Bu önceden yapılmış ayarlar, seri numarası gibi bu aygıta özgüdür.  Bunları değiştirmek isterseniz, bunu yönlendirici web GUI'sindeki Kablosuz Ayarları ekranında daha sonra yapabilirsiniz."
 
 bh_success_no_wireless_security_1 ="Bu yönlendiricide kablosuz güvenliği etkinleştirilmedi. NETGEAR şunu yapmanızı şiddetle önerir "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enables automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="Aşağıdaki router uygulamalarını indir:"
+bh_genie_app="<b>genie uyg.</b> Ev ağınızı izlemenizi, kontrol etmenizi ve onarmanızı sağlayan kişisel bir gösterge panosu."
+bh_rs_vault_app="<b>ReadySHARE Vault uygulaması (Yalnızca Windows bilgisayarlar için).</b> Bir Windows bilgisayarın router'ınıza bağlanmış bir USB sürücüsüne otomatik ve sürekli olarak yedeklenmesini etkinleştirir."
 bh_exit_mark="Çıkış"
 bh_previous="Önceki"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="İsteğiniz işleniyor…"
+bh_downloading="İndiriliyor…"
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="İndirme tamamlandıktan sonra genie uygulamasını kurun."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="Router'ı yapılandırmayı bitirmek için genie uygulamasını kurduktan sonra İleri düğmesine tıklayın."
 bh_dl_vault1="İndirme tamamlandıktan sonra ReadySHARE Vault uygulamasını kurun."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="Router'ı yapılandırmayı bitirmek için ReadySHARE Vault uygulamasını kurduktan sonra İleri düğmesine tıklayın."
 
 //firmware checking and update
 bh_wait_upg_head="Ürün Yazılımı Yükseltme Yardımcısı"

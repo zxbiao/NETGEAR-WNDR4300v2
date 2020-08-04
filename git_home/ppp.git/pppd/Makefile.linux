@@ -13,7 +13,7 @@ TARGETS = pppd
 
 PPPDSRCS = main.c magic.c fsm.c lcp.c ipcp.c upap.c chap-new.c md5.c \
 	auth.c options.c sys-linux.c md4.c chap_ms.c \
-	demand.c utils.c tty.c chap-md5.c
+	demand.c utils.c tty.c chap-md5.c resolv.c
 
 HEADERS = chap-new.h fsm.h ipcp.h \
 	lcp.h magic.h md5.h patchlevel.h pathnames.h pppd.h \
@@ -22,7 +22,7 @@ HEADERS = chap-new.h fsm.h ipcp.h \
 MANPAGES = pppd.8
 PPPDOBJS = main.o magic.o fsm.o lcp.o ipcp.o upap.o chap-new.o md5.o \
 	auth.o options.o demand.o utils.o sys-linux.o tty.o \
-	chap-md5.o
+	chap-md5.o resolv.o
 
 #
 # include dependencies if present

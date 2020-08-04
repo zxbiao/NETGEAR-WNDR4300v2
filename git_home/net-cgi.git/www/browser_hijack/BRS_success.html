@@ -59,10 +59,10 @@ var browser_lang="<% get_browser_language() %>";
 					if(wl_sectype == 4)
 					{
 						wl_tooltip1 = 1;
-						document.write('<u id="key_tooltip_1">'+bh_network_key+'</u>');
+						document.write('<u id="key_tooltip_1">'+bh_network_key+'</u>'+bh_connect_success_3);
 					}
 					else
-						document.write(bh_network_key);
+						document.write(bh_network_key+bh_connect_success_3);
 				}
 			}
 			else
@@ -79,10 +79,10 @@ var browser_lang="<% get_browser_language() %>";
 					if(wl_sectype == 4 && wla_sectype == 4)
 					{
 						wla_tooltip1 = 1;
-						document.write('<u id="key_tooltip_1">'+bh_network_key+'</u>');
+						document.write('<u id="key_tooltip_1">'+bh_network_key+'</u>'+bh_connect_success_3);
 					}
 					else
-						document.write(bh_network_key);
+						document.write(bh_network_key+bh_connect_success_3);
 				}
 			}							
 			</script>

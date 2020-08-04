@@ -184,6 +184,8 @@ bh_connect_success_2="تم تعيين هذا الموجه مسبقاً بواس�
 
 bh_network_key="مفتاح الشبكة (كلمة المرور)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="تم تعيين الموجه مسبقاً بواسطة أمان WPA2-PSK اللاسلكي لحماية الشبكة من الوصول غير المرغوب فيه. للانضمام إلى الشبكة اللاسلكية، يجب إدخال مفتاح الشبكة (كلمة المرور). تُعتبر إعدادات التعيين المسبق هذه فريدة لهذا الجهاز، مثل رقم تسلسلي.  وإذا أردت تغييرها، يمكنك القيام بذلك لاحقاً في شاشة الإعدادات اللاسلكية على GUI للموجه على ويب."
 
 bh_success_no_wireless_security_1 ="لم يتم تمكين الأمان اللاسلكي على هذا الموجه. تنصحك NETGEAR بشدة بأن "
@@ -363,19 +365,19 @@ bh_no_coverage_msg1="Mobile signal not detected."
 bh_no_coverage_msg2="Please check that the antennas are securely connected to the router."
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="قم بتنزيل تطبيقات الموجه التالية:"
+bh_genie_app="<b>تطبيق genie.</b>  لوحة معلومات خاصة تسمح لك بمراقبة الشبكة المنزلية الخاصة بك والتحكم فيها وإصلاحها."
+bh_rs_vault_app="<b> ReadySHARE Vault (لأجهزة الكمبيوتر التي تعمل بنظام Windows فقط).</b>تمكين النسخ الاحتياطي التلقائي المستمر لكمبيوتر يعمل بنظام Windows إلى محرك أقراص USB متصل بالموجه الخاص بك."
 bh_exit_mark="خروج"
 bh_previous="السابق"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="جارٍ معالجة طلبك..."
+bh_downloading="يتم التنزيل..."
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="ثبِّت تطبيق genie بعد اكتمال التنزيل."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="انقر فوق الزر التالي بعد تثبيت تطبيق genie لإنهاء تكوين الموجه."
 bh_dl_vault1="ثبِّت تطبيق ReadySHARE Vault بعد اكتمال التنزيل."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="انقر فوق الزر التالي بعد تثبيت تطبيق ReadySHARE Vault لإنهاء تكوين الموجه."
 
 //firmware checking and update
 bh_wait_upg_head="مساعد ترقية البرنامج الثابت"

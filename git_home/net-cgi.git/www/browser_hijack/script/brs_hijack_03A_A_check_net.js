@@ -23,7 +23,12 @@ function loadValue()
 	var cf = forms[0];
 
 	if(checking_result == "failed")	//failed
-		cf.submit();
+	{
+		if( top.is_ru_version == 1)
+			this.location.href="RU_check_wan_port.html";
+		else
+			cf.submit();
+	}
 	else if(checking_result == "success") //success
 		this.location.href = "BRS_success.html";
 }

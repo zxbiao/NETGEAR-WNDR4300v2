@@ -81,7 +81,7 @@ A {
 .fix_button{width: 100%; height: 30px; position: absolute; top: 20px; left: 0px; background: url(../image/oneline.gif) 0 -40px repeat-x;}
 
 
-.apply_bt,.middle_apply_bt, .apply_media, .cancel_bt, .long_add_bt,.middle_add_bt, .add_bt, .middle_edit_bt,.edit_bt, .middle_delete_bt,.delete_bt, .common_bt, .common_big_bt, .long_common_bt, .short_common_bt, .short_refresh_bt, .common_key_bt, .speedtest_bt, .window_bt, .non_window_bt{ height: 22px; color: #f2f2f2; font-family: Arial; font-weight: Bold; font-size: 14px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px;}
+.apply_bt,.middle_apply_bt, .apply_media, .cancel_bt, .long_add_bt,.middle_add_bt, .add_bt, .middle_edit_bt,.edit_bt,.long_edit_bt, .middle_delete_bt,.delete_bt, .common_bt, .common_big_bt, .long_common_bt, .short_common_bt, .short_refresh_bt, .common_key_bt, .speedtest_bt, .window_bt, .non_window_bt, .longest_common_bt{ height: 22px; color: #f2f2f2; font-family: Arial; font-weight: Bold; font-size: 14px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px;}
 .middle_common_bt, .common_show_stat_bt{ height: 22px; color: #f2f2f2; font-family: Arial; font-weight: Bold; font-size: 12px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px;}
 .common_el_bt, .middle_common_el_bt{height: 22px; color: #f2f2f2; font-family: Arial;font-size: 9px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px}
 .common_hu_bt, .middle_common_hu_bt{height: 22px; color: #f2f2f2; font-family: Arial; font-weight: Bold; font-size: 11px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px}
@@ -97,6 +97,7 @@ A {
 .long_add_bt_little{ width: 280px; background: url(../image/buttons.gif) no-repeat 0 -154px}
 .edit_bt{width:200px; background: url(../image/buttons.gif) no-repeat 0 -66px}
 .middle_edit_bt{width:220px; background: url(../image/buttons.gif) no-repeat -230px -242px}
+.long_edit_bt{width:240px; background: url(../image/buttons.gif) no-repeat -192px -330px}
 .edit_bt_little{width:200px; background: url(../image/buttons.gif) no-repeat 0 -66px}
 .delete_bt{width:180px; background: url(../image/buttons.gif) no-repeat -128px 0}
 .middle_delete_bt{width:209px; background: url(../image/buttons.gif) no-repeat -206px -308px}
@@ -105,6 +106,7 @@ A {
 .non_window_bt{width:180px; background: url(../image/buttons.gif) no-repeat -128px -44px}
 .common_big_bt{width:230px; background: url(../image/buttons.gif) no-repeat 0 -242px}
 .long_common_bt{width:320px; background: url(../image/buttons.gif) no-repeat 0 -198px}
+.longest_common_bt{width:405px; background: url(../image/buttons.gif) no-repeat 0 -374px}
 .short_common_bt{width:100px; background: url(../image/buttons.gif) no-repeat -200px -66px}
 .middle_common_bt, .middle_common_el_bt, .short_refresh_bt, .middle_common_hu_bt{width:128px; background: url(../image/buttons.gif) no-repeat 0 -44px}
 .common_key_bt{width:192px; background: url(../image/buttons.gif) no-repeat 0 -330px}
@@ -127,7 +129,7 @@ A {
 .st_header_font { color:#000000; font-family:Verdana; font-size:14px; font-weight: bold;}
 
 
-.edit1_bt, .add1_bt, .middle_delete1_bt, .common1_key_bt, .apply1_media, .delete1_bt, .short_common1_bt, .reboot1, .apply1_bt, .cancel1_bt, .common1_bt, .long_add_gray_bt, .add_gray_bt, .edit_gray_bt, .delete_gray_bt, .long_common_gray_bt, .common_gray_bt, .common_big_gray_bt, .short_common_gr_bt, .common_key_gray_bt{ height: 22px; color:#808080; font-family: Arial; font-weight: Bold; font-size: 14px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px;}
+.edit1_bt, .add1_bt, .middle_delete1_bt, .common1_key_bt, .apply1_media, .delete1_bt, .short_common1_bt, .reboot1, .apply1_bt, .cancel1_bt, .common1_bt, .long_add_gray_bt, .add_gray_bt, .edit_gray_bt, .long_edit_gray_bt, .delete_gray_bt, .long_common_gray_bt, .common_gray_bt, .common_big_gray_bt, .short_common_gr_bt, .common_key_gray_bt{ height: 22px; color:#808080; font-family: Arial; font-weight: Bold; font-size: 14px; background-color: transparent; border: none; cursor: pointer; padding-bottom: 2px;}
 .add1_bt{ width:135px; background: url(../image/buttons.gif) no-repeat 0 -132px}
 .edit1_bt{width:200px; background: url(../image/buttons.gif) no-repeat 0 -88px}
 .common1_key_bt{width:192px; background: url(../image/buttons.gif) no-repeat 0 -352px}
@@ -144,6 +146,7 @@ A {
 .edit_gray_bt{width:200px; background: url(../image/buttons.gif) no-repeat 0 -88px}
 .delete_gray_bt{width:180px; background: url(../image/buttons.gif) no-repeat -128px -22px}
 .long_common_gray_bt{width:320px; background: url(../image/buttons.gif) no-repeat 0 -220px}
+.long_edit_gray_bt{width:240px; background: url(../image/buttons.gif) no-repeat -192px -352px}
 .common_gray_bt{width:147px; background: url(../image/buttons.gif) no-repeat -135px -132px}
 .common_big_gray_bt{width:230px; background: url(../image/buttons.gif) no-repeat 0 -264px}
 .short_common_gr_bt{width:100px; background: url(../image/buttons.gif) no-repeat -200px -88px}

@@ -270,7 +270,7 @@ function check_wizard_pptp(check,page)
 			/* bug 31100 */
             		if ( checkipaddr(cf.l2tp_serv_ip.value) == true )
             		{
-				if ( cf.l2tp_myip.value !="" )
+				if ( cf.l2tp_myip.value !="" && !isSameSubNet(cf.l2tp_serv_ip.value,cf.l2tp_subnet.value,cf.l2tp_myip.value,cf.l2tp_subnet.value) )
 				{
 					if( cf.l2tp_gateway.value == "..." || cf.l2tp_gateway.value == "" )
 					{

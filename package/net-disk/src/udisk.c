@@ -140,14 +140,16 @@ static void run_action(struct udisk_info *udisk)
 	printf("usb0[%d], usb1[%d] !\n", usb0_attached, usb1_attached);	
 	if (usb0_attached == 1) {
 		printf("[USB] usb led 0 KEEP ON !\n");
-		system("usb_led_stop 0 > /dev/null");
+		system("usb_led_stop 0 2> /dev/null");
+		system("usb_led_stop 4 2> /dev/null");
 		system("/usr/sbin/usb_led 2");
 		system("cat /dev/null > /tmp/usb0_attached");
 		usb0_attached = 0;
 	}
 	if (usb1_attached == 1) {
 		printf("[USB] usb led 1 KEEP ON !\n");
-		system("usb_led_stop 1 > /dev/null");
+		system("usb_led_stop 1 2> /dev/null");
+		system("usb_led_stop 5 2> /dev/null");
 		system("/usr/sbin/usb_led 3");
 		system("cat /dev/null > /tmp/usb1_attached");
 		usb1_attached = 0;
@@ -269,17 +271,33 @@ void check_and_stop_led(int id)
 	if (need_stop) {
 		printf("USB led %d off !\n", id);
 		if (id == 0) {
-			system("usb_led_stop 2 > /dev/null");
+			system("usb_led_stop 2 2> /dev/null");
 			system("ledcontrol -n usb0 -c green -s off");
 			system("config set usb_led0=\"off\"");
 			usb1_count = 0;
 		} else if (id == 1) {
-			system("usb_led_stop 3 > /dev/null");
+			system("usb_led_stop 3 2> /dev/null");
                         system("ledcontrol -n usb1 -c green -s off");
                         system("config set usb_led1=\"off\"");
 			usb2_count = 0;
 		}
 	}
+}
+
+void dongle_disattached_process(const char *path, const char *intf)
+{
+        char cmd[128];
+
+        if (!path && !intf)
+                return;
+
+        sprintf(cmd, "/etc/usb_modem_hotplug %s off &", intf);
+        system(cmd);
+
+        memset(cmd, 0, 128);
+
+        sprintf(cmd, "/sbin/manage_usb_led.sh %s off &", path);
+        system(cmd);
 }
 
 void check_disattached_issue(char *buf, int buf_size)
@@ -314,7 +332,16 @@ void check_disattached_issue(char *buf, int buf_size)
                         msg.major = &key[6];
                 else if (strncmp(key, "MINOR=", 6) == 0)
                         msg.minor = &key[6];
+		else if (strncmp(key, "MODALIAS=", 9) == 0)
+                        msg.modalias = &key[9];
+                else if (strncmp(key, "INTERFACE=", 10) == 0)
+                        msg.interface = &key[10];
 	}
+
+	if (msg.modalias != NULL && msg.interface != NULL) {
+                dongle_disattached_process(msg.devpath, msg.interface);
+        }
+
 	if (msg.seqnum == NULL ||msg.action == NULL ||strcmp(msg.action, "remove"))
                 return;
         if (msg.devpath == NULL ||msg.subsystem == NULL || msg.major == NULL ||msg.minor == NULL)

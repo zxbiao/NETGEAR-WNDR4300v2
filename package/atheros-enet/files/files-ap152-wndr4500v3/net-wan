@@ -3,6 +3,19 @@ START=22
 
 FIREWALL="/www/cgi-bin/firewall.sh"
 
+print_mobiled_conf(){
+    cat <<EOF
+wan_cdma_evdo $1
+wan_cdma_username $2
+wan_cdma_password $3
+wan_cdma_pincode $4
+wan_cdma_dialnum $5
+wan_cdma_apn $6
+wan_cdma_pdp_type $7
+dni_support 1
+EOF
+}
+
 # Input: IPA, IPB, NETMASK
 # Return value: return true(0) if IPA and IPB are in dirrerent subnet, otherwise, return false(1) if in same subnet.
 in_different_subnet(){
@@ -83,6 +96,7 @@ setup_interface_static_ip(){
     # log for static mode when wan gets ip.
     local wan_log="[Internet connected] IP address: "$($CONFIG get wan_ipaddr)","
     /usr/bin/logger "$wan_log"
+    $CONFIG set internet_type=1
 }
 
 setup_interface_dhcp(){
@@ -112,6 +126,7 @@ setup_interface_dhcp(){
     fi
     mkdir -p /tmp/traffic_meter
     #/sbin/cmd_traffic_meter config_update
+    $CONFIG set internet_type=1
 }
 
 setup_interface_mulpppoe(){
@@ -121,8 +136,8 @@ setup_interface_mulpppoe(){
     load_modules /etc/modules.d/60-pppoe-mod
 
     if [ ! -d /etc/ppp/peers ] ;then
-        rm -rf /etc/ppp
-        mkdir -p /etc/ppp/peers
+        rm -rf /tmp/ppp
+        mkdir -p /tmp/ppp/peers
     fi
 
     local manul=$($CONFIG get wan_endis_dod)
@@ -254,10 +269,28 @@ set_dns() {
 start() {
     local ns_flag=0
     local proto=$($CONFIG get wan_proto)
+    boot_status=`cat /tmp/boot_status`
     traffic_month_limit=$($CONFIG get trafficmeter_monthly_limit_reached)
     traffic_block_all=$($CONFIG get traffic_block_all)
     firmware_region=`cat /tmp/firmware_region | awk '{print $1}'`
     local ru_feature=0
+    multi_wan_type=$($CONFIG get multi_wan_type)
+    failover_primary_link=$($CONFIG get failover_primary_link)
+
+    [ -f /tmp/boot_status ] && rmmod usbserial && rmmod cdc_ncm && rmmod hw_cdc_driver
+    if [ ! -f /tmp/failover_init_done -a "$multi_wan_type" = "failover" ]; then
+       [ "$failover_primary_link" != "3g" ] && /etc/init.d/failover.init boot
+       return
+    fi
+
+    if [ "$multi_wan_type" != "failover" ]; then
+       killall failover
+       rmmod usbserial &
+       if [ "$($CONFIG get dongle_need_plug)" != "0" ]; then
+               rmmod usbserial &
+       fi
+    fi
+
     if [ "x$firmware_region" = "xWW" ]||[ "x$firmware_region" = "x" ] ;then
 	if [ "x$($CONFIG get GUI_Region)" = "xRussian" ] ;then
 		ru_feature=1
@@ -267,10 +300,12 @@ start() {
     fi
 
     attach_dni_qos_if_not_attached
-    /sbin/ledcontrol -n wan -c amber -s on
-    
-    setup_wan_mac $proto
-
+    if [ "x$proto" != "x3g" -a "x$proto" != "xwimax" ]; then
+       /sbin/ledcontrol -n wan -c amber -s on
+       setup_wan_mac $proto
+    else
+       ifconfig $WAN_IF down
+    fi
     #start qos
     /sbin/qos.sh start
 
@@ -292,6 +327,17 @@ start() {
     [ "x$1" = "xmanually" ] && echo "********* The net-wan command is called manually!!! *********"
 
     case "$proto" in
+       3g)
+       $CONFIG set wan_mobile_ifname=ppp0
+       $CONFIG set mobile_running=1
+       [ -z `ps |grep mobiled |grep -v grep` ] && /bin/mobiled
+       print_mobiled_conf "$($CONFIG get wan_cdma_evdo)" "$($CONFIG get wan_cdma_username)" "$($CONFIG get wan_cdma_password)" "$($CONFIG get wan_cdma_pincode)" "$($CONFIG get wan_cdma_dialnum)" "$($CONFIG get wan_cdma_apn)" "$($CONFIG get wan_cdma_pdp_type)" > /tmp/mobiled.conf
+       
+       if [ ! -f /tmp/boot_status ] || [ "$multi_wan_type" = "failover" ]; then
+              mobilectl connect 
+       fi
+       ;;
+
 	pppoe)
 	. /lib/network/ppp.sh
 	    #if traffic meter monthly limit is not reached or don't check "Disconnect and disable the Internet connection".
@@ -420,6 +466,7 @@ start() {
 }
 
 stop() {
+	[ -f /tmp/boot_status ] && [ "$($CONFIG get multi_wan_type)" = "failover" ] && return
 	/usr/bin/killall -SIGINT ripd
 
 	# Shutdown and Kill all possible tasks
@@ -433,6 +480,12 @@ stop() {
 		/bin/kill $ipv4_pppd
 	fi
 
+       local cdma_pppd=`ps | grep "pppd call cdma" | grep -v "grep" |awk '{print $1}'`
+       if [ "x$cdma_pppd" != "x" ]; then
+               /bin/kill -SIGHUP $cdma_pppd
+               /bin/kill $cdma_pppd
+       fi
+
 	killall -SIGUSR2 udhcpc
 	killall udhcpc
 	killall udhcpc
@@ -442,6 +495,11 @@ stop() {
 	/sbin/rmmod pptp
 	/sbin/rmmod pppoe
 	/sbin/rmmod pppox
+
+       sleep 1
+       /sbin/rmmod ppp_synctty
+       /sbin/rmmod ppp_async
+       /sbin/rmmod crc-ccitt
 
 	sleep 2
 	/sbin/rmmod ppp_generic

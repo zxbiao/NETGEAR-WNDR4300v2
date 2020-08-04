@@ -185,6 +185,8 @@ bh_connect_success_2="이 공유기는 다음과 같은 공유 무선 네트워�
 
 bh_network_key="네트워크 키(암호)"
 
+bh_connect_success_3=""
+
 bh_rollover_help_text="공유기에는 원치 않는 액세스로부터 네트워크를 보호하기 위해 WPA2-PSK 무선 보안이 사전 설정되어 있습니다. 무선 네트워크에 연결하려면 네트워크 키(암호)를 입력해야 합니다. 이 사전 설정은 제품 번호처럼 이 장치에만 해당되는 고유한 설정입니다.  이 설정을 변경하려면 나중에 공유기 웹 GUI의 무선 설정 화면에서 변경할 수 있습니다."
 
 bh_success_no_wireless_security_1 ="이 공유기에는 무선 보안이 활성화되어 있지 않습니다. NETGEAR는 네트워크를 보호하기 위해 여기를 클릭하여 "
@@ -371,19 +373,19 @@ bh_coun20_isp_type2="China Unicom"
 bh_coun20_isp_type3="China Telecom"
 
 //download
-bh_download_apps="Downloading the following router apps:"
-bh_genie_app="<b>genie app.</b> A personal dashboard that lets you monitor, control, and repaire your home network."
-bh_rs_vault_app="<b>ReadySHARE Vault app(Only for Windows computers).</b> Enable automatic continuous backup of a Windows computer to a USB drive that's connected to your router."
+bh_download_apps="다음 라우터 앱 다운로드:"
+bh_genie_app="<b>genie 앱.</b> 홈 네트워크를 모니터링, 제어 및 복구할 수 있게 해주는 개인 대시보드입니다."
+bh_rs_vault_app="<b>ReadySHARE Vault 앱 (Windows 컴퓨터만 해당).</b> 라우터에 연결된 USB 드라이브로 Windows 컴퓨터의 지속적인 자동 백업을 활성화합니다."
 bh_exit_mark="Exit"
 bh_previous="이전"
-bh_processing="Processing your request..."
-bh_downloading="Downloading..."
+bh_processing="요청 처리 중…"
+bh_downloading="다운로드 중..."
 bh_dl_all1="Install the genie app and ReadySHARE Vault app after the download completes."
 bh_dl_all2="Click the <b>Next</b> button after you install the genie app and ReadySHARE Vault app to finish configuring the router."
 bh_dl_genie1="다운로드가 완료된 뒤 genie 앱을 설치합니다."
-bh_dl_genie2="Click the <b>Next</b> button after you install the genie app to finish configuring the router."
+bh_dl_genie2="genie 앱을 설치한 뒤 다음 버튼을 클릭하면 라우터 구성이 완료됩니다."
 bh_dl_vault1="다운로드가 완료된 뒤 ReadySHARE Vault 앱을 설치합니다."
-bh_dl_vault2="Click the <b>Next</b> button after you install the ReadySHARE Vault app to finish configuring the router."
+bh_dl_vault2="ReadySHARE Vault 앱을 설치한 뒤 다음 버튼을 클릭하면 라우터 구성이 완료됩니다."
 
 //firmware checking and update
 bh_wait_upg_head="펌웨어 업그레이드 길잡이"

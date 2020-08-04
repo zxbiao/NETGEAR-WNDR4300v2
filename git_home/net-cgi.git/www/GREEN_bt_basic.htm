@@ -205,7 +205,7 @@ function loadvalue()
 		form_1.enable_green_download.disabled=true;
 		document.getElementById("download_save_path").style.color="gray";
 		form_1.green_link_basic.disabled=true;
-		form_1.green_link_basic.className = "edit_gray_bt";
+		form_1.green_link_basic.className = "long_edit_gray_bt";
 		document.getElementById("type").style.color="gray";
 		document.getElementById("pc").style.color="gray";
 		form_1.download_type_1.disabled=true;
@@ -214,6 +214,7 @@ function loadvalue()
 		document.getElementsByName("bt_location_type")[2].disabled=true;
 		form_2.magnet_url_pc.disabled=true;
 		form_2.mtenFWUpload.disabled=true;
+		form_2.browse_btn.className = "short_common1_bt";
 		form_1.Add.disabled=true;
 		form_2.Add.disabled=true;
 		form_1.reset.disabled=true;
@@ -233,7 +234,7 @@ function loadvalue()
 		form_1.enable_green_download.disabled=false;
 		document.getElementById("download_save_path").style.color="black";
 		form_1.green_link_basic.disabled=false;
-		form_1.green_link_basic.className = "edit_bt";
+		form_1.green_link_basic.className = "long_edit_bt";
 		document.getElementById("type").style.color="gray";
 		document.getElementById("pc").style.color="gray";
 		form_1.download_type_1.disabled=true;
@@ -242,6 +243,7 @@ function loadvalue()
 		document.getElementsByName("bt_location_type")[2].disabled=true;
 		form_2.magnet_url_pc.disabled=true;
 		form_2.mtenFWUpload.disabled=true;
+		form_2.browse_btn.className = "short_common1_bt";
 		form_1.Add.disabled=true;
 		form_2.Add.disabled=true;
 		form_1.reset.disabled=true;
@@ -261,7 +263,7 @@ function loadvalue()
 		form_1.enable_green_download.disabled=false;
 		document.getElementById("download_save_path").style.color="black";
 		form_1.green_link_basic.disabled=false;
-		form_1.green_link_basic.className = "edit_bt";
+		form_1.green_link_basic.className = "long_edit_bt";
 		document.getElementById("type").style.color="black";
 		document.getElementById("pc").style.color="black";
 		form_1.download_type_1.disabled=false;
@@ -270,14 +272,15 @@ function loadvalue()
 		document.getElementsByName("bt_location_type")[2].disabled=false;
 		form_2.magnet_url_pc.disabled=false;
 		form_2.mtenFWUpload.disabled=false;
+		form_2.browse_btn.className = "short_common_bt";
 		form_1.Add.disabled=false;
                 form_2.Add.disabled=false;
                 form_1.reset.disabled=false;
                 form_2.reset.disabled=false;
                 form_1.Add.className = "add_bt";
                 form_2.Add.className = "add_bt";
-                form_1.reset.className = "cancel_bt";
-                form_2.reset.className = "cancel_bt";
+                form_1.reset.className = "delete_bt";
+                form_2.reset.className = "delete_bt";
 		
 	}
 
@@ -349,7 +352,7 @@ function select_all_items()
 		</script>
 	</td>
 	<td nowrap align="center">
-		<input class="edit_bt" type="button" name="green_link_basic" value="$greendl_manager_config_set_mark" onClick="redirect_config_download();">
+		<input class="long_edit_bt" type="button" name="green_link_basic" value="$greendl_manager_config_set_mark" onClick="redirect_config_download();">
 	</td>
 </tr>
 $bluebar
@@ -376,15 +379,15 @@ $bluebar
 	</tr>
 	<tr>
 		<td nowrap >
-			<input type="text" name="folder" size="32" value="" disabled>
-			<input type="button" name="browse" value="$browse_mark" onClick='open_all_browser(document.forms[0],0);'>
+			<input type="text" name="folder" size="24" maxlength="1024" value="" disabled>
+			&nbsp;&nbsp;&nbsp;<input type="button" name="browse" value="$browse_mark" class="short_common_bt" onClick='open_all_browser(document.forms[0],0);'>
 		</td>
 	</tr>
 $bluebar
         <tr>
                 <td nowrap colspan=2 align=center>
                 <input class="add_bt" type="submit" name="Add" value="$add_mark" onClick="return add_item();">&nbsp;&nbsp;
-                <input class="cancel_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
+                <input class="delete_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
                 </td>
         </tr>
 </table>
@@ -399,16 +402,16 @@ $bluebar
 			<input type="text" name="magnet_url" size="42" value="">
 		</td>
 	</tr>
-	<tr>
-		<td nowrap >
-			<input name="mtenFWUpload" type="file" size="32" disabled>
-		</td>
-	</tr>
+	<tr><td nowrap>
+        	<input name="mtenFWUpload" type="file" size="32" id="file" maxlength="1024" class="type-file-file" disabled />
+		<input type="text" name="upfile" size="24" maxlength="1024" readonly />
+		&nbsp;&nbsp;&nbsp;<input type="button" value="$browse_mark"  class="short_common1_bt" disabled />
+	</td></tr>
 $bluebar
         <tr>
                 <td nowrap colspan=2 align=center>
                 <input class="add_bt" type="submit" name="Add" value="$add_mark" onClick="return add_magnet();">&nbsp;&nbsp;
-                <input class="cancel_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
+                <input class="delete_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
                 </td>
         </tr>
 </table>
@@ -426,16 +429,16 @@ $bluebar
 				<input type="text" name="magnet_url_pc" size="42" value="">
 		</td>
 	</tr>
-	<tr>
-		<td nowrap>
-			<input name="mtenFWUpload" type="file" size="32">
-		</td>
-	</tr>
+	<tr><td nowrap>
+        	<input name="mtenFWUpload" type="file" size="32" id="file" maxlength="1024" class="type-file-file" onchange="this.form.upfile.value=this.value.substr(this.value.lastIndexOf('\\')+1);" contentEditable=false  onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;" onmouseover="this.style.cursor='pointer';" />
+		<input type="text" name="upfile" size="24" maxlength="1024" readonly />
+		&nbsp;&nbsp;&nbsp;<input type="button" name="browse_btn" value="$browse_mark"  class="short_common_bt" onclick="if(IE_version()!=6){this.form.file.click();}" onmouseover="this.style.cursor='default';" />
+	</td></tr>
 $bluebar
         <tr>
                 <td nowrap colspan=2 align=center>
                 <input class="add_bt" type="submit" name="Add" value="$add_mark" onClick="return add_BT();">&nbsp;&nbsp;
-		<input class="cancel_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
+		<input class="delete_bt" type='button' name='reset' value='$green_qos_reset' onClick='reset_form();'>
                 </td>
         </tr>
 </table>

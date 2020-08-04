@@ -36,11 +36,13 @@ start() {
 	if [ "$($CONFIG get ap_mode)" = "1" -o "$($CONFIG get bridge_mode)" = "1" ]; then
 		opt_argv="$opt_argv --wan-interface=$BR_IF"
 	else
-		if [ "$($CONFIG get wan_proto)" = "pppoe" -o "$($CONFIG get wan_proto)" = "pptp" -o "$($CONFIG get wan_proto)" = "l2tp" ]; then
-			opt_argv="$opt_argv --wan-interface=ppp0"
-		else
-			opt_argv="$opt_argv --wan-interface=$WAN_IF"
-		fi
+                if [ "$($CONFIG get wan_proto)" = "pppoe" -o "$($CONFIG get wan_proto)" = "pptp" -o "$($CONFIG get wan_proto)" = "l2tp" ]; then
+                        opt_argv="$opt_argv --wan-interface=ppp0"
+                elif [ "$($CONFIG get wan_proto)" = "3g" ]; then
+                        opt_argv="$opt_argv --wan-interface=$wan_mobile_ifname"
+                else
+                        opt_argv="$opt_argv --wan-interface=$WAN_IF"
+                fi
 	fi
 	# end wan ifname config
 

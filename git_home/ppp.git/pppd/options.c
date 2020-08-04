@@ -369,6 +369,7 @@ Usage: %s [ options ], where options are:\n\
 	file <f>	Take options from file <f>\n\
 	modem		Use modem control lines\n\
 	mru <n>		Set MRU value to <n> for negotiation\n\
+	detectlink      Active detect functions(for failvoer)\n\
 See pppd(8) for more options.\n\
 ";
 

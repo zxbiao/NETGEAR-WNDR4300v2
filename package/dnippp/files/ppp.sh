@@ -95,6 +95,8 @@ insert_modules(){
 	load_modules /etc/modules.d/60-pptp-mod
     elif [ "$1" = "l2tp" ]; then
 	load_modules /etc/modules.d/60-l2tp-mod
+    elif [ "$1" = "3g" ]; then
+    	load_modules /etc/modules.d/60-3g-mod
     else
 	load_modules /etc/modules.d/60-pppoe-mod
     fi
@@ -312,6 +314,9 @@ setup_interface_ppp() {
 
 	sed -i '/user/ s/\\/\\\\/g' /etc/ppp/peers/dial-provider
         sed -i '/user/ s/\#/\\#/g' /etc/ppp/peers/dial-provider
+    elif [ "$proto" = "3g" ]; then
+       echo "insmod  3G ppp modules ...."
+       insert_modules "3g"
     else
 	insert_modules "pppoe"
 	user=$($CONFIG get wan_pppoe_username)

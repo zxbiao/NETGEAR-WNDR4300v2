@@ -343,9 +343,6 @@ function keyup_check_host(e, ev)
 	if(keycode==37||keycode==39)
 		return true;
 
-	if(master == "admin" && cf.have_account[1] && cf.have_account[1].checked == true)
-		ajaxCheckHost(e.value);
-
 	return true;
 }
 function check_value(type, e)

@@ -154,6 +154,12 @@ start() {
 		mknod /dev/ppp c 108 0
 		mkdir -p /tmp/ppp
 		mkdir -p /etc/ppp/peers
+		if ! [ -f "$IPV6_UP" ]; then
+			write_ipv6_up > $IPV6_UP
+			chmod +x $IPV6_UP
+			write_ipv6_down > $IPV6_DOWN
+			chmod +x $IPV6_DOWN
+		fi	
 	fi
 
 	local ipv4_proto=`$CONFIG get wan_proto`
@@ -242,11 +248,10 @@ pppoe_autodet() {
         local wait_time="3"
         while [ "$wait_time" -gt "0" ]; do
 		/usr/bin/killall dhcp6c
-		echo 0 > /proc/sys/net/ipv6/conf/$WAN/forwarding
-        	/sbin/rs_send -i $WAN -h $WAN_IF -c 3 -t 1 &
+        	echo 1 > /proc/sys/net/ipv6/conf/${WAN}/autoconf
+		/sbin/rs_send -i $WAN -h $WAN_IF -c 3 -t 1 &
                 sleep 4
-		echo 1 > /proc/sys/net/ipv6/conf/$WAN/forwarding
-		sleep 2
+		echo 0 > /proc/sys/net/ipv6/conf/${WAN}/autoconf
                 ra_ip=`ifconfig $WAN |grep "inet6 addr" |grep -v "Link" |awk '{print $3}'`
 		/usr/bin/killall -9 dhcp6c
                 if [ "x$ra_ip" != "x" ]; then
@@ -256,6 +261,7 @@ pppoe_autodet() {
 		else
 			PPPOEv6_WAY=0
 			config set ipv6_pppoe_way=0
+			write_dhcp6c_conf > $DHCP6C_CONF
 			write_ipv6_up > $IPV6_UP
 			/usr/sbin/dhcp6c -3 -h $WAN_IF -c /tmp/dhcp6c.conf $WAN
                 	sleep 6
@@ -266,8 +272,9 @@ pppoe_autodet() {
         done
 
 	if [ "$PPPOEv6_WAY" = "1" ]; then
-		write_ipv6_up > $IPV6_UP
+		write_dhcp6c_conf > $DHCP6C_CONF
 		/usr/sbin/dhcp6c -3 -h $WAN_IF -c /tmp/dhcp6c.conf $WAN
+		echo 1 > /proc/sys/net/ipv6/conf/${WAN}/autoconf
 	fi
 	return 0
 }

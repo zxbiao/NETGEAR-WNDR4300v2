@@ -157,12 +157,14 @@ define Package/dnippp/install
 	$(INSTALL_DIR) $(1)/usr/lib/pppd/$(PKG_VERSION)
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/pppd $(1)/usr/sbin/
+	$(INSTALL_BIN) ./files/do-3g-reconnect.sh $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/lib/network
 	$(INSTALL_BIN) ./files/ppp.sh $(1)/lib/network/
 	$(INSTALL_DIR) $(1)/etc/modules.d
 	$(INSTALL_BIN) ./files/etc/modules.d/60-pptp-mod $(1)/etc/modules.d/
 	$(INSTALL_BIN) ./files/etc/modules.d/60-pppoe-mod $(1)/etc/modules.d/
 	$(INSTALL_BIN) ./files/etc/modules.d/60-l2tp-mod $(1)/etc/modules.d/
+	$(INSTALL_BIN) ./files/etc/modules.d/60-3g-mod $(1)/etc/modules.d/
 	ln -sf /tmp/ppp $(1)/etc/ppp
 endef
 

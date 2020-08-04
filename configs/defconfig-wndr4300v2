@@ -1063,7 +1063,7 @@ CONFIG_PACKAGE_net-cgi=y
 #
 # Configurations
 #
-CONFIG_NET_CGI_GIT_TREEISH="net-cgi-common-dni019"
+CONFIG_NET_CGI_GIT_TREEISH="net-cgi-common-dni023"
 CONFIG_NET_CGI_GIT_REPOSITORY="net-cgi.git"
 CONFIG_NET_CGI_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/net-cgi.git"
 # CONFIG_PACKAGE_netscan is not set
@@ -1085,6 +1085,7 @@ CONFIG_TRAFFICMETER_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/trafficmeter
 CONFIG_PACKAGE_uci=y
 CONFIG_PACKAGE_ucitrigger=y
 CONFIG_PACKAGE_udevtrigger=y
+CONFIG_PACKAGE_usb-modeswitch=y
 # CONFIG_PACKAGE_uploadmgr is not set
 CONFIG_PACKAGE_utelnetd=y
 CONFIG_PACKAGE_wireless-tools=y
@@ -1152,7 +1153,7 @@ CONFIG_PACKAGE_acl=y
 #
 # Configurations
 #
-CONFIG_DNI_ACL_GIT_TREEISH="dni-acl-dni3"
+CONFIG_DNI_ACL_GIT_TREEISH="dni-acl-dni7"
 CONFIG_DNI_ACL_GIT_REPOSITORY="dni-acl.git"
 CONFIG_DNI_ACL_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/dni-acl.git"
 CONFIG_PACKAGE_amule=y
@@ -1204,6 +1205,8 @@ CONFIG_PACKAGE_detwan=y
 CONFIG_DNI_DETWAN_GIT_TREEISH="wan-detection-dni27"
 CONFIG_DNI_DETWAN_GIT_REPOSITORY="wan-detection.git"
 CONFIG_DNI_DETWAN_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/wan-detection.git"
+CONFIG_PACKAGE_dni-chat=y
+CONFIG_PACKAGE_dnimobile=y
 # CONFIG_PACKAGE_dni-ddns-scripts is not set
 # CONFIG_PACKAGE_dni-genl is not set
 CONFIG_PACKAGE_dni-ip=y
@@ -1226,6 +1229,7 @@ CONFIG_PACKAGE_dnippp-mod-pptp=y
 # CONFIG_PACKAGE_dnipppstats is not set
 # CONFIG_PACKAGE_dpppoe is not set
 CONFIG_PACKAGE_ebtables=y
+CONFIG_PACKAGE_failover=y
 # CONFIG_PACKAGE_ebtables-utils is not set
 # CONFIG_PACKAGE_genl is not set
 CONFIG_PACKAGE_greendownload=y
@@ -1459,6 +1463,7 @@ CONFIG_PACKAGE_libpng=y
 CONFIG_PACKAGE_libreadline=y
 CONFIG_PACKAGE_libuci=y
 CONFIG_PACKAGE_libuci-lua=y
+CONFIG_PACKAGE_libusb=y
 CONFIG_PACKAGE_libuuid=y
 CONFIG_PACKAGE_libvorbis=y
 CONFIG_PACKAGE_libwxwidgets=y
@@ -1719,7 +1724,7 @@ CONFIG_PACKAGE_kmod-mp-alg=y
 # CONFIG_PACKAGE_kmod-pktgen is not set
 CONFIG_PACKAGE_kmod-ppp=y
 # CONFIG_PACKAGE_kmod-mppe is not set
-# CONFIG_PACKAGE_kmod-ppp-synctty is not set
+CONFIG_PACKAGE_kmod-ppp-synctty=y
 # CONFIG_PACKAGE_kmod-pppoa is not set
 CONFIG_PACKAGE_kmod-pppoe=y
 # CONFIG_PACKAGE_kmod-pppol2tp is not set
@@ -1783,7 +1788,8 @@ CONFIG_PACKAGE_kmod-ftp-alg=y
 CONFIG_FTP_ALG_GIT_TREEISH="kmod-ftp-v2.6.31-dni5"
 CONFIG_FTP_ALG_GIT_REPOSITORY="kmod-ftp.git"
 CONFIG_FTP_ALG_GIT_URL="ssh://dniserver/scm/dnigit/common/kmods/kmod-ftp.git"
-CONFIG_PACKAGE_kmod-hid=m
+CONFIG_PACKAGE_kmod-hid=y
+CONFIG_PACKAGE_kmod-hw-cdc=y
 CONFIG_PACKAGE_kmod-input-core=y
 CONFIG_PACKAGE_kmod-input-evdev=m
 # CONFIG_PACKAGE_kmod-input-joydev is not set
@@ -1895,15 +1901,15 @@ CONFIG_PACKAGE_kmod-sound-core=m
 #
 # USB Support
 #
-CONFIG_PACKAGE_kmod-usb-core=m
-CONFIG_PACKAGE_kmod-usb-acm=m
+CONFIG_PACKAGE_kmod-usb-core=y
+CONFIG_PACKAGE_kmod-usb-acm=y
 # CONFIG_PACKAGE_kmod-usb-atm is not set
 CONFIG_PACKAGE_kmod-usb-audio=m
 # CONFIG_PACKAGE_kmod-usb-cm109 is not set
 CONFIG_PACKAGE_kmod-usb-hid=m
 CONFIG_PACKAGE_kmod-usb-net=m
 CONFIG_PACKAGE_kmod-usb-net-asix=m
-# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set
+CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y
 # CONFIG_PACKAGE_kmod-usb-net-dm9601-ether is not set
 CONFIG_PACKAGE_kmod-usb-net-kaweth=m
 # CONFIG_PACKAGE_kmod-usb-net-mcs7830 is not set
@@ -1912,7 +1918,7 @@ CONFIG_PACKAGE_kmod-usb-net-pegasus=m
 CONFIG_PACKAGE_kmod-usb-ohci=m
 # CONFIG_PACKAGE_kmod-usb-phidget is not set
 CONFIG_PACKAGE_kmod-usb-printer=m
-CONFIG_PACKAGE_kmod-usb-serial=m
+CONFIG_PACKAGE_kmod-usb-serial=y
 CONFIG_PACKAGE_kmod-usb-serial-airprime=m
 # CONFIG_PACKAGE_kmod-usb-serial-ark3116 is not set
 CONFIG_PACKAGE_kmod-usb-serial-belkin=m
@@ -1964,7 +1970,7 @@ CONFIG_PACKAGE_kmod-atheros-aquila-madwifi=y
 #
 # Configurations
 #
-CONFIG_ATHEROS_MADWIFI_GIT_TREEISH="27592efe50dfe5eb24c13ea3c53adad627afce1b"
+CONFIG_ATHEROS_MADWIFI_GIT_TREEISH="madwifi-11n-10.2.00085-dni1"
 CONFIG_ATHEROS_MADWIFI_GIT_REPOSITORY="madwifi-11n.git"
 CONFIG_ATHEROS_MADWIFI_GIT_URL="ssh://dniserver/scm/dnigit/vendor/atheros/madwifi-11n/spencer/madwifi-11n.git"
 CONFIG_ATHEROS_MADWIFI_SUPPORT_DFS=y

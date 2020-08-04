@@ -24,6 +24,9 @@ echo 1 > /proc/simple_config/usb5v
 echo 1 > /proc/simple_config/usb5v_0
 echo 1 > /proc/simple_config/usb5v_1
 
+if [ ! -f /tmp/failover_init_done ]; then
+        /etc/init.d/failover.init boot
+fi
 
 /etc/init.d/afpd start
 

@@ -267,6 +267,13 @@ function check_three_DNS(wan_assign)
                 alert("$dns_must_specified");
                 return false;
         }
+
+	if((cf.ether_dnsaddr1.value!="" && (cf.ether_dnsaddr1.value==cf.ether_dnsaddr2.value || cf.ether_dnsaddr1.value==cf.ether_dnsaddr3.value)) || (cf.ether_dnsaddr2.value!="" && cf.ether_dnsaddr2.value==cf.ether_dnsaddr3.value) )
+	{
+		alert("$invalid_ip");
+		return false;
+	}
+
         return true;
 }
 

@@ -1159,7 +1159,7 @@ static void ndisc_router_discovery(struct sk_buff *skb)
 		return;
 	}
 
-	if (in6_dev->cnf.forwarding || !in6_dev->cnf.accept_ra) {
+	if (!in6_dev->cnf.autoconf || !in6_dev->cnf.accept_ra) {
 		in6_dev_put(in6_dev);
 		return;
 	}

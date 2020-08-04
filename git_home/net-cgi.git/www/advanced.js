@@ -79,7 +79,7 @@ function change_size()
 		menu_words.className = "menu_ie9_words";
 	}
 	
-	if(isIE_or_Opera() && IE_version() !=9)
+	if(isIE_or_Opera() && IE_version() !=9 && IE_version() !=11)
 	{
 		/* to calculate the width */
 		var width = document.documentElement.clientWidth - 40;
@@ -169,9 +169,9 @@ function clickSubMenu(current_div, change_id)
 var array_name = ["wds_items", "ap_items", "wds_ap_items", "bridge_items"];
 var enable_flags = ["enabled_wds", "enable_ap_flag", "enable_bridge_flag"];
 var wds_items = [ "guest", "email", "schedule", "log"]; //split up the above 2 items into three items,because wds_items is controled by top.enabled_wds,  ap_items is controled by top.enable_ap_flag. wds_ap_items is controled by both of them. This array should not include "qos", as in QOS page "Enable WMM (Wi-Fi multimedia) settings" still can be used, and according to Spec v10 P135: When a feature is grey out also means the functionalities are disabled. so "qos" can not grey out.
-var ap_items = ["lan", "ipv6", "parental"]; // "wds",for bug 30286 moved here
+var ap_items = ["lan", "ipv6", "parental", "wl_bridge"]; // "wds",for bug 30286 moved here
 var wds_ap_items = ["internet", "wan", "block_site", "block_services", "forwarding_triggering", "dns", "static", "remote", "upnp", "traffic"];
-var bridge_items = [ "internet", "wireless", "guest","wan", "lan","qos", "parental","access_control","vpn","block_site", "block_services", "email", "schedule","wds","forwarding_triggering", "dns", "static", "remote", "upnp", "traffic", "ipv6"];
+var bridge_items = [ "internet", "wireless", "guest","wan", "lan","qos", "parental","access_control","vpn","block_site", "block_services", "email", "schedule","wds","wlap","forwarding_triggering", "dns", "static", "remote", "upnp", "traffic", "ipv6"];
 function enabledItemsClass()
 {
 	var i, j;
@@ -511,15 +511,15 @@ function click_adv_action(id)
                 }
                 else if( id == "wladv" )
                 {
-			goto_formframe("WLG_adv.htm");
+			goto_formframe("WLG_advanced.htm");
 			menu_color_change('wladv');
                 }
-		else if( id == "wlap" )
+		else if( id == "wlap" && top.enable_bridge_flag != 1)
                 {
                         goto_formframe("WLG_wap.htm");
                         menu_color_change('wlap');
                 }
-				else if( id == "wl_bridge" )
+		else if( id == "wl_bridge" && top.enable_ap_flag != 1 )
                 {
                         goto_formframe("WLG_bridge.htm");
                         menu_color_change('wl_bridge');

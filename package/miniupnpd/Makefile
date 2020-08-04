@@ -23,6 +23,8 @@ config-y                                       += --with-wan_ifname=$(CONFIG_WAN
 config-$(CONFIG_MINIUPNPD_SUPPORT_PNPX)                += --enable-support_pnpx
 config-$(CONFIG_MINIUPNPD_SUPPORT_PNPX)                += --with-pnpx_hwid=$(CONFIG_MINIUPNPD_PNPX_HWID)
 
+patches-y	+= patches/0001-upnp-add-support-3g-4g-in-miniupnpd.patch
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/miniupnpd

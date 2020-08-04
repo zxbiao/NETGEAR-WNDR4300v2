@@ -2489,7 +2489,7 @@
        "\n\nOptions:\n" \
        "	-c CNT	Send only CNT pings\n" \
        "	-s SIZE	Send SIZE data bytes in packets (default=56)\n" \
-       "	-I IP	Use IP as source address\n" \
+       "	-I IFACE/IP	Use Interface or IP as source address\n" \
        "	-q	Quiet mode, only displays output at start\n" \
        "		and when finished"
 #endif

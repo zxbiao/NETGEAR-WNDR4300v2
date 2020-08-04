@@ -132,5 +132,111 @@ sw_config_vlan()
 	# add vlan 2 in vlan table
 	set_reg 0x610 $v_610_vlan2
 	set_reg 0x614 0x80020002
-	set_reg 0x90  0x1280
 }
+
+
+sw_acl_rule()
+{
+    set_reg 0x030 0x80000302
+    #rule
+    set_reg 0x404 0x5e7ffffa #DA:byte 0-5:   destination mac addr
+    set_reg 0x408 0x00000100 #SA DA
+    set_reg 0x40c 0x00000000 #SA
+    set_reg 0x410 0x00000001 #vlan1
+    set_reg 0x414 0x00000001 #cpu port
+    set_reg 0x400 0x80000020
+    #mask
+    set_reg 0x404 0xffffffff #byte 0-5:   destination mac addr mask
+    set_reg 0x408 0x0000ffff
+    set_reg 0x40c 0x00000000
+    set_reg 0x410 0x00000fff
+    set_reg 0x414 0x000000f9 #start&end, untaged frame, mac rule
+    set_reg 0x400 0x80000120
+    #result
+    set_reg 0x404 0x00000000
+    set_reg 0x408 0xc0000000
+    set_reg 0x40c 0x00000013
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x00000000
+    set_reg 0x400 0x80000220
+
+    #IPv6 multicast cpu->lan
+    #rule
+    set_reg 0x404 0x00000000 #MAC DA: 33:33:XX:XX:XX:XX
+    set_reg 0x408 0x00003333 #SA DA
+    set_reg 0x40c 0x00000000 #SA
+    set_reg 0x410 0x00000001 # vlan 1
+    set_reg 0x414 0x00000001 #Source port: cpu port
+    set_reg 0x400 0x80000021 #add mac rule
+    #mask
+    set_reg 0x404 0x00000000 #byte 0-5:   destination mac addr mask
+    set_reg 0x408 0x0000ffff
+    set_reg 0x40c 0x00000000
+    set_reg 0x410 0x00000fff
+    set_reg 0x414 0x000000f9 #start&end, taged frame, mac rule
+    set_reg 0x400 0x80000121
+    #result
+    set_reg 0x404 0x00000000
+    set_reg 0x408 0xc0000000
+    set_reg 0x40c 0x00000013
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x00000000
+    set_reg 0x400 0x80000221
+
+
+    #IPv6 multicast lan->cpu
+    #rule
+    set_reg 0x404 0x00000000 #MAC DA: 33:33:XX:XX:XX:XX
+    set_reg 0x408 0x00003333 #SA DA
+    set_reg 0x40c 0x00000000 #SA
+    set_reg 0x410 0x00000000 #
+    set_reg 0x414 0x0000001e #Source port: lan port
+    set_reg 0x400 0x80000022 #add mac rule
+    #mask
+    set_reg 0x404 0x00000000 #byte 0-5:   destination mac addr mask
+    set_reg 0x408 0x0000ffff
+    set_reg 0x40c 0x00000000
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x000000c9 #start&end, untaged frame, mac rule
+    set_reg 0x400 0x80000122
+    #result
+    set_reg 0x404 0x00000000
+    set_reg 0x408 0xe0000000 #to cpu and lan
+    set_reg 0x40c 0x00000013 #to cpu and lan
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x00000000
+    set_reg 0x400 0x80000222
+
+    #IPv6 multicast  cpu->wan
+    #rule
+    set_reg 0x404 0x00000000 #MAC DA: 33:33:XX:XX:XX:XX
+    set_reg 0x408 0x00003333 #SA DA
+    set_reg 0x40c 0x00000000 #SA
+    set_reg 0x410 0x00000002 #vlan 2
+    set_reg 0x414 0x00000001 #Source port: cpu port
+    set_reg 0x400 0x80000023 #add mac rule
+    #mask
+    set_reg 0x404 0x00000000 #byte 0-5:   destination mac addr mask
+    set_reg 0x408 0x0000ffff
+    set_reg 0x40c 0x00000000
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x000000f9 #start&end, taged frame, mac rule
+    set_reg 0x400 0x80000123
+    #result
+    set_reg 0x404 0x00000000
+    set_reg 0x408 0x00000000
+    set_reg 0x40c 0x00000014 #to wan
+    set_reg 0x410 0x00000000
+    set_reg 0x414 0x00000000
+    set_reg 0x400 0x80000223
+
+#    ethreg -i phy0 0x400=0x80000403
+#	 ethreg -i phy0 0x400
+#    ethreg -i phy0 0x404
+#    ethreg -i phy0 0x408
+
+}
+
+
+
+

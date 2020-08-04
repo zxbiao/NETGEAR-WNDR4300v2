@@ -465,9 +465,13 @@ static void setup_l2tp_nameserver(unsigned int dns_index)
                         maintain_host_route(rt_l2tpdnssvr, 1);
         }
 
-	if (!usepeerdns)
-		rename(_PATH_RESOLV, L2TP_DNS_TMPFILE);
-	fp = fopen(_PATH_RESOLV, "w");
+       if(!detectlink) {
+               if (!usepeerdns)
+                       rename(_PATH_RESOLV, L2TP_DNS_TMPFILE);
+               fp = fopen(_PATH_RESOLV, "w");
+       }
+       else
+               fp = fopen(_PATH_RESOLV_TMP, "w");
 	if (fp == NULL)
 		return;
 
@@ -516,9 +520,15 @@ static unsigned int get_l2tp_server(void)
 	 */
 	for(dns_index=1; dns_index<4; dns_index++) {
 		setup_l2tp_nameserver(dns_index);
-		host = gethostbyname(devnam);
-		if (host != NULL && host->h_addrtype == AF_INET)
-			memcpy(&addr, host->h_addr, sizeof(addr));
+		if (!detectlink) {
+			host = gethostbyname(devnam);
+			if (host != NULL && host->h_addrtype == AF_INET)
+				memcpy(&addr, host->h_addr, sizeof(addr));
+		} else {
+			system("/etc/failover/failover.sh config_fw insert eth1");
+			addr = dns_lookup(devnam, _PATH_RESOLV_TMP);
+			system("/etc/failover/failover.sh config_fw delete eth1");
+		}
 		flush_l2tp_nameserver();
 
 		if (addr != 0) {

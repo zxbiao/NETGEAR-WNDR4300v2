@@ -9,7 +9,7 @@ function check_vlan_input(cf,flag)
 		}
 		for(i=1;i<=array_num;i++)
 		{
-			var str=eval( 'vlanArray' + i )
+			var str=eval( 'vlanArray' + i ).replace(/&#92;/g, "\\").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#40;/g,"(").replace(/&#41;/g,")").replace(/&#34;/g,'\"').replace(/&#39;/g,"'").replace(/&#35;/g,"#").replace(/&#38;/g,"&");
 			var str_info=str.split(' ');
 			if(str_info[1] == cf.vlan_name.value && (!(flag == 'edit' && sel_num==i )))
 			{
@@ -177,6 +177,11 @@ function click_edit_btn(cf)
 {
 	var select_num;
 	var count_select=0;
+	if (array_num == 0)
+	{
+		alert("$port_edit");
+		return false;
+	}
 	if (array_num == 1)
 	{
 		if(cf.vlanSelect.checked == true)
@@ -197,7 +202,10 @@ function click_edit_btn(cf)
 		}
 	}
 	if(count_select==0)
+	{
+		alert("$port_edit");
 		return false;
+	}
 	else
 	{
 		cf.hid_enable_vlan.value="1";
@@ -213,6 +221,11 @@ function click_delete_btn(cf)
 {
 	var count_select=0;
 	var select_num;
+	if ( array_num == 0 )
+	{
+		alert("$port_del");
+		return false;
+	}
 	if (array_num == 1)
 	{
 		if(cf.vlanSelect.checked == true)
@@ -233,10 +246,13 @@ function click_delete_btn(cf)
 		}
 	}
 	if(count_select==0)
+	{
+		alert("$port_del");
 		return false;
+	}
 	else
 	{
-		var sel_str=eval( 'vlanArray' + select_num )
+		var sel_str=eval( 'vlanArray' + select_num ).replace(/&#92;/g, "\\").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#40;/g,"(").replace(/&#41;/g,")").replace(/&#34;/g,'\"').replace(/&#39;/g,"'").replace(/&#35;/g,"#").replace(/&#38;/g,"&");
 		var sel_info=sel_str.split(' ');
 
 		if(confirm("$vlan_warn1"+" "+ sel_info[1]+"?") ==false)

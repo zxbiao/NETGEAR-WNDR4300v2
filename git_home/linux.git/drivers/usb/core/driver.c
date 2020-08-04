@@ -28,6 +28,7 @@
 #include <linux/workqueue.h>
 #include "hcd.h"
 #include "usb.h"
+#include "../usb-modem-list.h"
 
 
 #ifdef CONFIG_HOTPLUG
@@ -594,6 +595,39 @@ static int usb_device_match(struct device *dev, struct device_driver *drv)
 
 		intf = to_usb_interface(dev);
 		usb_drv = to_usb_driver(drv);
+#if 1
+		/*Don't attach 3G modems in modem devices list, even they may have storage interface
+		* Apples.Wang of DNI added this at April 23, 2010 */
+		int modem_match=0;
+		struct usb_device *uudev;
+		int uudev_vid=0, uudev_pid=0;
+		uudev = interface_to_usbdev(intf);
+		uudev_vid = le16_to_cpu(uudev->descriptor.idVendor);
+		uudev_pid = le16_to_cpu(uudev->descriptor.idProduct);
+		//printk("drv->name:%s\n", drv->name);
+		if(!strcmp(drv->name, "usb-storage") || !strcmp(drv->name, "KC NetUSB General Driver")){
+			int modem_ct=0, modem_vid=0, modem_pid=0;
+			//printk("uudev, VenderId: 0x%x, ProductId: 0x%x\n",uudev_vid,uudev_pid);
+			while(1){
+				modem_vid = usb_modem_ids[modem_ct].idVendor;
+				modem_pid = usb_modem_ids[modem_ct].idProduct;
+				if(!modem_vid && !modem_pid)
+					break;
+				if(modem_vid == uudev_vid && modem_pid == uudev_pid){
+					//printk("USB Wireless Modem device detected, VenderId: 0x%x, ProductId: 0x%x, DriverName:%s\n",modem_vid,modem_pid, drv->name);
+					modem_match = 1;
+					break;
+				}
+				modem_ct ++;
+			}
+		}
+		if(modem_match != 1 && !strcmp(drv->name, "KC NetUSB General Driver")){
+			if(uudev_vid == HUAWEI_VENDOR_ID || uudev_vid == ZTE_VENDOR_ID)
+				modem_match = 1;
+		}
+		if(modem_match)
+			return 0;
+#endif
 
 		id = usb_match_id(intf, usb_drv->id_table);
 		if (id)

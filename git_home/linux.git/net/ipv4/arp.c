@@ -201,6 +201,144 @@ struct neigh_table arp_tbl = {
 	.gc_thresh3 =	1024,
 };
 
+#include <linux/proc_fs.h>
+#define IPMAC_PROC_NAME "ipmac"
+static struct proc_dir_entry *ipmac_proc_entry;
+
+unsigned long a2ln(char *addr)
+{
+      int i1 = 0, i2 = 0, i3 = 0, i4 = 0;
+      sscanf(addr,"%d.%d.%d.%d", &i1, &i2, &i3, &i4);
+      return (unsigned long)( (i1<<24) | (i2<<16) | (i3<<8) | (i4));
+}
+
+struct __ipmac_list
+{
+	unsigned long sip;
+	unsigned char mac[32];
+	struct __ipmac_list *prev;
+	struct __ipmac_list *next;
+};
+static struct __ipmac_list m_head;
+
+int insert_list(struct __ipmac_list *member)
+{
+	struct __ipmac_list *pos;
+	pos = &m_head;
+	member->prev = pos;
+	member->next = pos->next;
+	if(pos->next != NULL)
+		pos->next->prev = member;
+	pos->next = member;
+	return 0;
+
+}
+
+void remove_list(struct __ipmac_list *member)
+{
+	if(member == NULL || member == &m_head)
+		return;
+	if(member->next != NULL)
+		member->next->prev = member->prev;
+	member->prev->next = member->next;
+	kfree(member);
+}
+
+void clear_list()
+{
+	struct __ipmac_list *pos = m_head.next;
+        while(pos != NULL) {
+	//	struct __ipmac_list *next_pos = pos->next;
+        //	kfree(pos);
+		remove_list(pos);
+		pos = pos->next;
+	}
+}
+
+void add_ipmac_table(unsigned long sip, unsigned char mac[32])
+{
+	struct __ipmac_list *ptr = NULL;
+	ptr = (struct __ipmac_list *)kmalloc( sizeof(struct __ipmac_list), GFP_ATOMIC);
+	if (likely(ptr))
+	{
+		strcpy(ptr->mac, mac);
+		ptr->sip = sip;
+		ptr->prev = NULL;
+		ptr->next = NULL;
+	}
+	insert_list(ptr);
+}
+
+int ipmac_member(unsigned long sip, unsigned char mac[6])
+{
+	struct __ipmac_list *ptr = m_head.next;
+	char s_mac[32]="0";
+	int i = 0;
+	sprintf(s_mac, "%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1],mac[2],mac[3],mac[4],mac[5]);
+	while(s_mac[i] != '\0') {
+		if(s_mac[i] > ('a'-1) && s_mac[i] < ('z'+1))
+			s_mac[i] -= 32;
+		i++;
+	}
+	while(ptr != NULL && sip != 0 && s_mac != NULL) {
+		if((sip == ptr->sip) && (strncmp(s_mac, ptr->mac, i) == 0)) {
+			//printk("is one member\n");
+			return 1;
+		}
+		ptr = ptr->next;
+	}
+	return 0;
+}
+
+int ipmac_read(char *page, char **start, off_t off,
+                                int count, int *eof, void *data)
+{
+	struct __ipmac_list *pos = m_head.next;
+	while(pos != NULL && pos->sip != 0) {
+		printk("ip mac entry:%u.%u.%u.%u %s", NIPQUAD(pos->sip), pos->mac);
+		pos=pos->next;
+	}
+	return 0;
+}
+
+int ipmac_write( struct file *filp, const char __user *buff,
+                                         unsigned long len, void *data )
+{
+	char line[64];
+	char *ptr =NULL, *mac =NULL ,*tmp = line;
+	unsigned long ip = 0;
+	if (copy_from_user( line, buff, len ))
+		return -EFAULT;
+	line[len] = 0;
+	if(tmp != NULL) {
+		ptr = strsep(&tmp, " ");
+		ip = a2ln(ptr);
+	}
+	if(tmp != NULL)
+		mac = strsep(&tmp, " ");
+	/* echo "0" > /proc/ipmac */
+	if(ip == 0 && mac == NULL) {
+		printk("clear list\n");
+		clear_list();
+	} else if(ip != 0 && mac != NULL) {
+		add_ipmac_table(ip, mac);
+		printk("add ip:%u.%u.%u.%u mac:%s\n", NIPQUAD(ip), mac);
+	} else
+		printk("error info\n");
+	return len;
+}
+
+void create_ipmac_proc_entry(void)
+{
+	ipmac_proc_entry = create_proc_entry(IPMAC_PROC_NAME, 0666, NULL);
+	if(ipmac_proc_entry) {
+		ipmac_proc_entry->read_proc = ipmac_read;
+		ipmac_proc_entry->write_proc = ipmac_write;
+	}
+	memset(&m_head, 0, sizeof(struct __ipmac_list));
+	printk("create ipmac proc\n");
+}
+
 int arp_mc_map(__be32 addr, u8 *haddr, struct net_device *dev, int dir)
 {
 	switch (dev->type) {
@@ -728,6 +866,8 @@ static int arp_process(struct sk_buff *skb)
 	int addr_type;
 	struct neighbour *n;
 	struct net *net = dev_net(dev);
+	struct ethhdr *ethernet = (struct ethhdr *)skb->mac_header;
+	unsigned char *src_mac = ethernet->h_source;
 
 	/* arp_rcv below verifies the ARP header and verifies the device
 	 * is ARP'able.
@@ -843,6 +983,12 @@ static int arp_process(struct sk_buff *skb)
 	} else if(s_ip == sip && t_ip == tip) {
 		arp_attack_count++;
 	}
+
+	/* Implement ip-mac binding to drop lan arp reply */
+        if (IN_DEV_ARP_DROP_REPLY(in_dev)) {
+                if(!ipmac_member(ntohl(sip), src_mac))
+                        goto out;
+        }
 
 	if (arp->ar_op == htons(ARPOP_REQUEST) &&
 	    ip_route_input(skb, tip, sip, 0, dev) == 0) {
@@ -1276,6 +1422,7 @@ void __init arp_init(void)
 			      NET_IPV4_NEIGH, "ipv4", NULL, NULL);
 #endif
 	register_netdevice_notifier(&arp_netdev_notifier);
+	create_ipmac_proc_entry();
 }
 
 #ifdef CONFIG_PROC_FS
