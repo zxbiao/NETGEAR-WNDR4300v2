@@ -4,7 +4,7 @@ WNDR4300v2
 
 2) List the version number of the firmware/software that correlates with the open source code archive.
 
-wndr4300v2-V1.0.0.50
+wndr4300v2-V1.0.0.52
 
 7) List the main HW platform utilized such as CPU, main chipset, RF chipset, DSP, Switch IC¡­etc.
 

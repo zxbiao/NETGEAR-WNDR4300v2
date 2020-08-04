@@ -1,0 +1,48 @@
+GIT repository:
+===============
+
+ssh://dniserver/scm/dnigit/common/boots/u-boot.git
+branch dni
+
+How to build:
+=============
+
+This u-boot is based on QCA LSDK 10.1.478
+
+#
+# Uncompressed u-boot without LSDK
+#
+$ export PATH="$PATH:/your/toolchain/path"
+$ OBJS=cpu/mips/start_hw29764733p4p0p32p2x2p0.o KERNELVER=2.6.31 BUILD_OPTIMIZED=y COMPRESSED_UBOOT=0 ETH_CONFIG=_s27 UBOOT_GCC_4_3_3_EXTRA_CFLAGS=-fPIC make hw29764733p4p0p32p2x2p0_config
+$ OBJS=cpu/mips/start_hw29764733p4p0p32p2x2p0.o KERNELVER=2.6.31 BUILD_OPTIMIZED=y COMPRESSED_UBOOT=0 ETH_CONFIG=_s27 UBOOT_GCC_4_3_3_EXTRA_CFLAGS=-fPIC make
+
+#
+# Compressed u-boot without LSDK
+#
+$ export PATH="$PATH:/your/toolchain/path"
+$ OBJS=cpu/mips/start_hw29764733p4p0p32p2x2p0.o OBJS_BOOTSTRAP=cpu/mips/start_bootstrap_hw29764733p4p0p32p2x2p0.o KERNELVER=2.6.31 BUILD_OPTIMIZED=y COMPRESSED_UBOOT=1 ETH_CONFIG=_s27 UBOOT_GCC_4_3_3_EXTRA_CFLAGS=-fPIC make hw29764733p4p0p32p2x2p0_config
+$ OBJS=cpu/mips/start_hw29764733p4p0p32p2x2p0.o OBJS_BOOTSTRAP=cpu/mips/start_bootstrap_hw29764733p4p0p32p2x2p0.o KERNELVER=2.6.31 BUILD_OPTIMIZED=y COMPRESSED_UBOOT=1 ETH_CONFIG=_s27 UBOOT_GCC_4_3_3_EXTRA_CFLAGS=-fPIC make
+
+Compressed u-boot binary is tuboot.bin
+
+Steps to upgrade u-boot:
+========================
+
+In the meantime, u-boot takes 5 erase blocks (5*0x10000):
+4 code blocks plus 1 env block.
+
+ath> tftp 0x80060000 u-boot.bin
+ath> crc32 0x80060000 ${filesize}
+ath> erase 0x9f000000 +0x50000&&cp.b 0x80060000 0x9f000000 ${filesize}
+ath> reset
+
+Steps to upgrade tuboot:
+========================
+
+In the meantime, u-boot takes 2 erase blocks (2*0x10000):
+2 code blocks plus 0 env block.
+
+ath> tftp 0x80060000 tuboot.bin
+ath> crc32 0x80060000 ${filesize}
+ath> erase 0x9f000000 +0x20000&&cp.b 0x80060000 0x9f000000 ${filesize}
+ath> reset
