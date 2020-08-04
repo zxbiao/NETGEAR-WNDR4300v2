@@ -908,5 +908,8 @@ static struct usb_device_id usb_modem_ids[] = {
 	//SKYLINK CT-650
 	{ USB_DEVICE(0x211f, 0x6801) },
 
+    { USB_DEVICE(0x028a, 0x1006) }, //ITON WU830 F4.0 0x05c6,0x1000 --> 0x028a,0x1006
+    { USB_DEVICE(0x6000, 0x1000) }, //ITON EU830 F5.1 0x6000,0x1000 --> 0x05c6,0x6000
+
 	{ } /* Terminating entry */
 };

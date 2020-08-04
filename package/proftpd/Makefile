@@ -55,6 +55,8 @@ define Build/Configure
 		echo "#undef HAVE_FUTIMES" >> config.h ; \
 		echo "#define HAVE_NET_IF_H" >> config.h ; \
 		echo "#define LAN_IFNAME \"br0\"" >> config.h ; \
+		echo "#define WAN_IFNAME \"eth1\"" >> config.h ; \
+		echo "#define PPPOE_IFNAME \"ppp0\"" >> config.h ; \
 		echo "#define USB_NET_ACCESS_LOG" >> config.h ; \
 		echo "#define NETGEAR_GUEST_ACCESS" >> config.h ; \
 		echo "#define _FILE_OFFSET_BITS  64" >> config.h ; \

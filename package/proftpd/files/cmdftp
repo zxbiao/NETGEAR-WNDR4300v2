@@ -8,6 +8,9 @@ proftpd_tmpfile=/tmp/tmp_ftp_file
 TMP_DEVICE_NAME=/tmp/tmp_device_name_xyz
 TMP_LOCK_FILE=/tmp/tmp_lock_abc123xyz
 
+#ftp_passwd_enable=0
+ftp_passwd_enable=`${config} get usb_passwdFvia`
+
 check_all_folder_limit()
 {
 	if [ -f /tmp/shared_usb_folder ]; then rm -f /tmp/shared_usb_folder; fi
@@ -48,30 +51,46 @@ creat_cur_workdir()
 
 append_read_allowuser()
 {
-	case "$1" in
-		0) echo "			AllowUser admin"
-		   echo "			AllowUser guest";;
-        	1) echo "			AllowUser guest";;
-        	2) echo "			AllowUser admin";;
-		*);;
-	esac
+	if [ "x$ftp_passwd_enable" = "x0" ];then
+		case "$1" in
+			0) echo "			AllowUser admin"
+			   echo "			AllowUser guest";;
+			1) echo "			AllowUser guest";;
+			2) echo "			AllowUser admin";;
+			*);;
+		esac
+	else
+		case "$1" in
+			0 | 1 | 2)
+				echo "          AllowUser admin";;
+			*);;
+		esac
+	fi
 }
 
 append_write_allowuser()
 {
-	case "$1" in
-		0) echo "			AllowUser admin"
-		   echo "			AllowUser guest";;
+	if [ "x$ftp_passwd_enable" = "x0" ];then
+		case "$1" in
+			0) echo "			AllowUser admin"
+			   echo "			AllowUser guest";;
         	1) echo "			AllowUser admin";;
         	2) echo "			AllowUser admin";;
-		*);;
-	esac
+			*);;
+		esac
+	else
+		case "$1" in
+			0 | 1 | 2)
+				echo "          AllowUser admin";;
+			*);;
+		esac
+	fi
 }
 
 print_onesharefolder_config()
 {
 	cat <<EOF >>$proftpd_tmpfile
-	<Directory /tmp/ftpguest/shares/$1>
+	<Directory /tmp/ftpadmin/shares/$1>
 	AllowOverwrite    on
 		<Limit Read>
 EOF
@@ -179,13 +198,19 @@ mount1()
 
 map_usb_to_ftp()
 {
-	case "$4" in
-		0 | 1)mount1 "$1" "$2" "$3" "ftpadmin" "$4"
-		      mount1 "$1" "$2" "$3" "ftpguest" "$4";;
-        	2)    mount1 "$1" "$2" "$3" "ftpadmin" "$4";;
+	if [ "x$ftp_passwd_enable" = "x0" ];then
+		case "$4" in
+			0 | 1)mount1 "$1" "$2" "$3" "ftpadmin" "$4"
+			mount1 "$1" "$2" "$3" "ftpguest" "$4";;
+			2)    mount1 "$1" "$2" "$3" "ftpadmin" "$4";;
+			*);;
+		esac
+	else
+		case "$4" in
+			0 | 1 |	2)    mount1 "$1" "$2" "$3" "ftpadmin" "$4";;
 		*);;
-	esac
-
+		esac
+	fi
 }
 
 isdafake(){

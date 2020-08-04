@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Tasks>
-<% list_downloaded_xml() %>
-<% list_download_xml() %>
-</Tasks>

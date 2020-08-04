@@ -6,6 +6,15 @@ board_hw_id="$(/sbin/artmtd -r board_hw_id | cut -f 2 -d ":" | cut -f 7 -d "+")"
 /sbin/artmtd -r region
 firmware_region=`cat /tmp/firmware_region | awk '{print $1}'`
 
+spi_nand_flash_id=`dmesg | grep "Nand_Vendor" | awk '{print $2}'`
+
+# Check the spi nand flash old or new
+echo "1" > /tmp/cfg_allow_upgrade_fw
+
+if [ "$spi_nand_flash_id" = "0xef" ]; then
+	echo "0" > /tmp/cfg_allow_upgrade_fw
+fi
+
 #When board_model_id on HW board data area is WNDR4500v3
 if [ "$board_hw_id" = "5508012173" ];then
 	echo "WNDR4500v3" > /tmp/module_name

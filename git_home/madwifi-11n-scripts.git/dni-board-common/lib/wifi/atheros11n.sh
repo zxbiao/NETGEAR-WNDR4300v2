@@ -458,17 +458,32 @@ wifischedule_atheros11n() {
                     do
                         kill -9 $j
                     done
-                    if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" = "x" ]; then
-                        echo -e "/etc/wpa2/WSC_ath0.conf \c\h" > /tmp/conf_filename
-                    fi
-                    if [ "x$wlg_radio_status" = "x" -a "x$wla_radio_status" != "x" ]; then
-                        echo -e "/etc/wpa2/WSC_ath1.conf \c\h" > /tmp/conf_filename
-                    fi
-                    if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" != "x" ]; then
-                        echo -e "/etc/wpa2/WSC_ath0.conf \c\h" > /tmp/conf_filename
-                        echo -e "/etc/wpa2/WSC_ath1.conf \c\h" >> /tmp/conf_filename
-                    fi
-                    hostapd  -B `cat /tmp/conf_filename` -e /etc/wpa2/entropy
+					wl_wps_a=`/bin/config get endis_wl_wps`
+					wla_wps_a=`/bin/config get endis_wla_wps`
+					if [ "x$wl_wps_a" = "x0" -o "x$wla_wps_a" = "x0" ];then
+						if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" = "x" ]; then
+							echo -e "/tmp/secath0 \c\h" > /tmp/conf_filename
+						fi
+						if [ "x$wlg_radio_status" = "x" -a "x$wla_radio_status" != "x" ]; then
+							echo -e "/tmp/secath1 \c\h" > /tmp/conf_filename
+						fi
+						if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" != "x" ]; then
+							echo -e "/tmp/secath0 \c\h" > /tmp/conf_filename
+						    echo -e "/tmp/secath1 \c\h" >> /tmp/conf_filename
+						fi
+					else
+						if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" = "x" ]; then
+							echo -e "/etc/wpa2/WSC_ath0.conf \c\h" > /tmp/conf_filename
+						fi
+						if [ "x$wlg_radio_status" = "x" -a "x$wla_radio_status" != "x" ]; then
+							echo -e "/etc/wpa2/WSC_ath1.conf \c\h" > /tmp/conf_filename
+						fi
+						if [ "x$wlg_radio_status" != "x" -a "x$wla_radio_status" != "x" ]; then
+							echo -e "/etc/wpa2/WSC_ath0.conf \c\h" > /tmp/conf_filename
+							echo -e "/etc/wpa2/WSC_ath1.conf \c\h" >> /tmp/conf_filename
+						fi
+					fi
+						hostapd  -B `cat /tmp/conf_filename` -e /etc/wpa2/entropy
                 fi
             fi
             rm $HOSTAPD_LOCK_FILE

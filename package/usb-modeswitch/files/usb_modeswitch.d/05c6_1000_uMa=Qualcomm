@@ -1,11 +1,11 @@
 ########################################################
-# WU830 F5.0
+# WU830 F5.0 && WU830 F4.0
 
 DefaultVendor=  0x05c6
 DefaultProduct= 0x1000
 
-TargetVendor=   0x05c6
-TargetProduct=  0x6000
+TargetVendorList=   "0x05c6,0x028a"
+TargetProductList=  "0x6000,0x1006"
 
 CheckSuccess=20
 

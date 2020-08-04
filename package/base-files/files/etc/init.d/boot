@@ -198,9 +198,29 @@ start() {
 				$CONFIG set wl_country="2"
 				$CONFIG set ntp_server="GMT-10"
 				$CONFIG set ntpserver_select="GMT-10"
-				$CONFIG set ntp_hidden_select="35"
+				$CONFIG set ntp_hidden_select="36"
 				$CONFIG set time_zone="GMT-10"
 				$CONFIG set email_ntpserver="GMT-10"
+				;;
+			US)
+				$CONFIG set wla_country="10"
+				$CONFIG set wl_country="10"
+				$CONFIG set ntp_server="GMT+8"
+				$CONFIG set ntpserver_select="GMT+8"
+				$CONFIG set ntp_hidden_select="4"
+				$CONFIG set time_zone="GMT+8"
+				$CONFIG set email_ntpserver="GMT+8"
+				$CONFIG set region_flag="DISABLED"
+				;;
+			CA)
+				$CONFIG set wla_country="3"
+				$CONFIG set wl_country="3"
+				$CONFIG set ntp_server="GMT+5"
+				$CONFIG set ntpserver_select="GMT+5"
+				$CONFIG set ntp_hidden_select="9"
+				$CONFIG set time_zone="GMT+5"
+				$CONFIG set email_ntpserver="GMT+5"
+				$CONFIG set region_flag="DISABLED"
 				;;
 		esac
 

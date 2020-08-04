@@ -223,7 +223,9 @@ static void add_smbd_share_info(FILE *fp, char *displayname, char *reader, char 
 		"  browsable=yes\n",
 		displayname, path);	
 
-	if (strncmp(reader, USER_GUEST, strlen(USER_GUEST)))
+	if (!strcmp(config_get("usb_passwdNet"), "1")) 
+		fprintf(fp, "  valid users=@%s,@%s\n  write list=@%s\n  public=no\n\n", USER_ADMIN, USER_ADMIN, USER_ADMIN);
+	else if (strncmp(reader, USER_GUEST, strlen(USER_GUEST)))
 		fprintf(fp, "  valid users=@%s,@%s\n  write list=@%s\n  public=no\n\n", reader, writer, writer);
 	else if (strncmp(writer, USER_GUEST, strlen(USER_GUEST))) {
 		fprintf(fp, "  guest ok=no\n");
