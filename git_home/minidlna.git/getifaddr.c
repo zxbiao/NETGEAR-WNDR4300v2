@@ -276,6 +276,7 @@ getsyshwaddr(char *buf, int len)
 				continue;
 			}
 			memcpy(mac, ifr.ifr_hwaddr.sa_data, 6);
+			close(fd);
 #else
 			struct sockaddr_dl *sdl;
 			sdl = (struct sockaddr_dl*)p->ifa_addr;

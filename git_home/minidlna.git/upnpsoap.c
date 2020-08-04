@@ -1780,6 +1780,18 @@ SamsungGetFeatureList(struct upnphttp * h, const char * action)
 	BuildSendAndCloseSoapResp(h, resp, sizeof(resp)-1);
 }
 
+static int sql_check(char *value_sql){//SQL injection prohibited
+	int i = 0, len = 0;
+	char *reject_value[]={"drop", "or", "and", "=", "inser", "+", "-", ";","exec", "select", "delete",
+	"update", "count", "*", "%", "chr", "mid", "master", "truncate", "(", ")"};//You can add filter rules in this array
+	len = sizeof(reject_value) / sizeof(char *);
+	for(i = 0; i < len; i++){
+		if(strcasestr(value_sql,reject_value[i]))
+			return 1;
+	}
+	return 0;
+}
+
 static void
 SamsungSetBookmark(struct upnphttp * h, const char * action)
 {
@@ -1794,6 +1806,12 @@ SamsungSetBookmark(struct upnphttp * h, const char * action)
 	ParseNameValue(h->req_buf + h->req_contentoff, h->req_contentlen, &data, 0);
 	ObjectID = GetValueFromNameValueList(&data, "ObjectID");
 	PosSecond = GetValueFromNameValueList(&data, "PosSecond");
+
+	if(sql_check(PosSecond) || sql_check(ObjectID)){//Check ObjectID and PosSecond weather valid
+		PosSecond = NULL;
+		ObjectID = NULL;
+	}
+
 	if( ObjectID && PosSecond )
 	{
 		int ret;

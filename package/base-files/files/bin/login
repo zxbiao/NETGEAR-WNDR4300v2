@@ -10,10 +10,11 @@ EOF
 echo -n "telnet account:"
 read telnet_account
 echo -n "telnet password:"
-read telnet_passwd
+read -s telnet_passwd
 if [ "$telnet_passwd" = "" ];then
-read telnet_passwd
+	read -s telnet_passwd
 fi
+echo ""
 if [ "$telnet_account" = "$(/bin/config get http_username)" ]  && [ "$telnet_passwd" = "$(/bin/config get http_passwd)" ];then
 cat << EOF
  === IMPORTANT ============================

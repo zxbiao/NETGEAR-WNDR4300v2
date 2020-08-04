@@ -27,9 +27,15 @@ function detec_status()
 		else
 			status = top.formframe.auto_search_frame.status;
 		if (status == 9999)
+		{
 			location.href="UPG_check_version.htm";
+			top.topframe.location.href="top.html";
+		}
 		else if (status >= 10000)
+		{
 			location.href="AUTO_upgrade_noversion.htm";
+			top.topframe.location.href="top.html";
+		}
 		else
 		{
 			//document.write("$wizard_pls_wait");
@@ -41,9 +47,6 @@ function detec_status()
 	{
 		location.href="AUTO_upgrade_no_internet.htm";
 	}
-
-	if ( top.location.href.indexOf("BRS_index.htm") == -1 )
-		top.topframe.location.href="top.html";
 }
 function click_cancel()
 {

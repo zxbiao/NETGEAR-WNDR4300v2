@@ -133,6 +133,7 @@ void
 log_err(int level, enum _log_facility facility, char *fname, int lineno, char *fmt, ...)
 {
 	va_list ap;
+	return;
 
 	if (level && level>log_level[facility] && level>E_FATAL)
 		return;
