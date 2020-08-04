@@ -1005,51 +1005,26 @@ function check_qos_apply(cf)
 	qos_bandwith=parseInt(cf.tcbw_value.value);
 	if ( cf.turn_qos_bandwidth_on.checked == true )
 	{
-		if (max_bandwidth == 1000)
+		var qos_bandwith_alert = ("$qos_bandwith1000M").replace("1000",max_bandwidth);
+		if(cf.tcbw_unit.selectedIndex == 0)
 		{
-			if(cf.tcbw_unit.selectedIndex == 0)
+			if(!(qos_bandwith > 0 && qos_bandwith < (max_bandwidth*1024+1)))
 			{
-				if(!(qos_bandwith>0&&qos_bandwith<1024001))
-				{
-					alert("$qos_bandwith1000M");
-					return false;
-				}
-				else
-					cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value);
+				alert(qos_bandwith_alert);
+				return false;
 			}
 			else
-			{
-				if(!(qos_bandwith>0&&qos_bandwith<1001))
-				{
-					alert("$qos_bandwith1000M");
-					return false;
-				}
-				else
-					cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value)*1024;
-			}
+				cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value);
 		}
-		else if (max_bandwidth == 100)
+		else
 		{
-			if(cf.tcbw_unit.selectedIndex == 0)
+			if(!(qos_bandwith > 0 && qos_bandwith <(max_bandwidth + 1)))
 			{
-				if(!(qos_bandwith>0&&qos_bandwith<102401))
-				{
-					alert("$qos_bandwith100M");
-					return false;
-				}
-				else
-					cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value);
+				alert(qos_bandwith_alert);
+				return false;
 			}
 			else
-			{
-				if(!(qos_bandwith>0&&qos_bandwith<101))
-				{
-					alert("$qos_bandwith100M");
-					return false;
-				}
-				else
-					cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value)*1024;
-			}
+				cf.qos_hidden_uprate.value = parseInt(cf.tcbw_value.value)*1024;
 		}
 	}
 	else

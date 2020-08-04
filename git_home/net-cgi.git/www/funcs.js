@@ -2551,3 +2551,4 @@ function printText(str1, str2)
 String.prototype.replaceXSSItem = function() {
 	return this.replace(/&#92;/g, "\\").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#40;/g,"(").replace(/&#41;/g,")").replace(/&#34;/g,'\"').replace(/&#39;/g,"'").replace(/&#35;/g,"#").replace(/&#38;/g,"&");
 }
+

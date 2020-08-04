@@ -1,6 +1,6 @@
 function click_status()
 {
-	window.open('mobile_conn_status.htm','mobile_connect_status','width=625,height=600,top=50,left=200,status=yes');
+	window.open('mobile_conn_status.htm','mobile_connect_status','width=625,height=600,top=50,left=200,status=yes,resizable=yes');
 }
 
 function click_detect_install()

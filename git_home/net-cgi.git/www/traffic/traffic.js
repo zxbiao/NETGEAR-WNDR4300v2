@@ -224,7 +224,7 @@ function click_status()
 	var cf=document.forms[0];
 	if (cf.checkTraffic.checked == true)
 	{
-		window.open('show_traffic.htm','show_traffic','width=600,height=400,top=200,left=200,status=yes');
+		window.open('show_traffic.htm','show_traffic','width=600,height=400,top=200,left=200,status=yes,resizable=yes');
 	}
 }
 

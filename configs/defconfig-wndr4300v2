@@ -1063,7 +1063,7 @@ CONFIG_PACKAGE_net-cgi=y
 #
 # Configurations
 #
-CONFIG_NET_CGI_GIT_TREEISH="net-cgi-common-dni023"
+CONFIG_NET_CGI_GIT_TREEISH="net-cgi-common-dni029"
 CONFIG_NET_CGI_GIT_REPOSITORY="net-cgi.git"
 CONFIG_NET_CGI_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/net-cgi.git"
 # CONFIG_PACKAGE_netscan is not set
@@ -2155,7 +2155,7 @@ CONFIG_NET_UTIL_GIT_TREEISH="net-util-dni39"
 CONFIG_NET_UTIL_GIT_REPOSITORY="net-util.git"
 CONFIG_NET_UTIL_GIT_URL="ssh://dniserver/scm/dnigit/common/apps/net-util.git"
 # CONFIG_PACKAGE_ocf-crypto-headers is not set
-# CONFIG_PACKAGE_openssl-util is not set
+CONFIG_PACKAGE_openssl-util=y
 CONFIG_PACKAGE_px5g=y
 CONFIG_PACKAGE_realpath=y
 # CONFIG_PACKAGE_robocfg is not set

@@ -26,12 +26,12 @@ function apply_submit(cf)
 
 function click_mobile_info()
 {
-	window.open('mobile_info.htm', 'mobile_info', 'width=961,height=400,top=200,left=200,status=yes');
+	window.open('mobile_info.htm', 'mobile_info', 'width=961,height=400,top=200,left=200,status=yes,resizable=yes');
 }
 
 function click_conn_status()
 {
-	window.open('get_mobile_conn_status.htm', 'conn_status', 'width=961,height=400,top=200,left=200,status=yes');
+	window.open('get_mobile_conn_status.htm', 'conn_status', 'width=961,height=400,top=200,left=200,status=yes,resizable=yes');
 }
 
 function change_isp(index)
