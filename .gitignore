@@ -1,0 +1,33 @@
+##############################
+## Folders                  ##
+##############################
+/target
+/dl
+/bin
+/build_dir
+/staging_dir
+/tmp
+/logs
+/feeds
+/files
+/overlay
+/package/feeds
+/package/openwrt-packages
+##############################
+## Cache&Files              ##
+##############################
+*.o
+.DS_Store
+.*.swp
+/feeds.conf
+key-build*
+*.orig
+*.rej
+*~
+.#*
+*#
+.emacs.desktop*
+TAGS*~
+git-src
+.git-credentials
+/*.log
