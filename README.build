@@ -11,17 +11,17 @@ Note:
  Build code
 ============
 
-1. uncompress source code file WNDR4300v2-V1.0.0.56_gpl_src.zip.
+1. uncompress source code file WNDR4300v2-V1.0.0.58_gpl_src.zip.
 
-	unzip WNDR4300v2-V1.0.0.56_gpl_src.zip
+	unzip WNDR4300v2-V1.0.0.58_gpl_src.zip
 
 2. run following commands to build firmware.
 
-	cd WNDR4300v2-V1.0.0.56_gpl_src
+	cd WNDR4300v2-V1.0.0.58_gpl_src
 	cp configs/defconfig-wndr4300v2 .config
 	GIT_HOME=`pwd`/git_home make V=99
 
-3. the final image is "bin/WNDR4300v2-V1.0.0.56.img".
+3. the final image is "bin/WNDR4300v2-V1.0.0.58.img".
 
 
 
